@@ -1,0 +1,16 @@
+body {
+    #root {
+        > footer {
+            background: #ccc;
+            border-top: 1px solid #444;
+            bottom: 0;
+            color: black;
+            height: 2em;
+            line-height: 2em;
+            position: fixed;
+            text-align: center;
+            width: 100%;
+            z-index: 100;
+        }
+    }
+}

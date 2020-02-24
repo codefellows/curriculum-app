@@ -1,0 +1,76 @@
+body {
+    overflow: hidden;
+}
+
+main {
+    margin: 6rem 0;
+
+    > h2 {
+        display: none;
+    }
+}
+
+article {
+    height: unquote("calc(100vh - 10rem)");
+    overflow: auto;
+    position: relative;
+    text-shadow: 1px 1px 0px #fff;
+
+    > ul {
+        @include box-inner-glow;
+
+        padding: 1rem;
+        height: 100%;
+        position: fixed;
+        left: 0;
+        top: 3rem;
+
+        li {
+            a {
+                color: #444;
+                display: block;
+                padding: .5rem;
+                text-decoration: none;
+
+                &:hover {
+                    @include box-pushed-in;
+                }
+            }
+
+            p {
+                a {
+                    color: #800000;
+                }
+            }
+        }
+    }
+
+    > section {
+        max-width: 1024px;
+        margin-left: 300px;
+
+        h3 {
+            margin: 1.5rem 0;
+        }
+
+        p {
+            margin: 1rem .25rem;
+        }
+
+        blockquote {
+            background: #ddd;
+            border-left: 2px solid #414141;
+            margin-left: 1.5rem;
+            padding: .5rem;
+        }
+
+        ul {
+            list-style-type: square;
+            margin: .5rem;
+
+            li {
+                margin: .5rem;
+            }
+        }
+    }
+}

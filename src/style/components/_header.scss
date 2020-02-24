@@ -1,0 +1,16 @@
+body {
+    > #root {
+        > header {
+            background: $baseDark;
+            color: ivory;
+            font-size: 1.5rem;
+            height: 2.5em;
+            line-height: 2.5em;
+            position: fixed;
+            text-align: center;
+            top: 0;
+            width: 100%;
+            z-index: 100;
+        }
+    }
+}
