@@ -4,16 +4,14 @@ const superagent = require('superagent');
 
 exports.handler = async (event, context) => {
 
-    return {
-        statusCode: 200,
-        body: JSON.stringify({event, context})
-    };
-
-  let repo = event.repo.replace(/^\//, '');
-  let file = event.file.replace(/^\//, '');
-  let version = event.version || 'master';
-  let url = `https://raw.githubusercontent.com/${repo}/${version}/${file}`;
   try {
+
+    let request = JSON.parse(event.body);
+    let repo = request.repo.replace(/^\//, '');
+    let file = request.file.replace(/^\//, '');
+    let version = request.version || 'master';
+    let url = `https://raw.githubusercontent.com/${repo}/${version}/${file}`;
+
     let content = await superagent
       .get(url)
       .set('authorization', `Bearer ${process.env.TOKEN}`);
