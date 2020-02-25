@@ -9,6 +9,7 @@ import './style/site.scss';
 
 // Needs to be deployed
 const proxy = process.env.REACT_APP_GITHUB_PROXY;
+console.log(proxy);
 
 export default function App() {
   const [content, setContent] = useState('');
