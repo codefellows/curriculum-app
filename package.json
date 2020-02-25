@@ -32,7 +32,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "zip": "cd functions && npm install && chmod -R 777 node_modules && zip -r function.zip *",
+    "postbuild": "npm run zip"
   },
   "browserslist": [
     ">0.2%",
