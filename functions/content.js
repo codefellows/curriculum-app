@@ -2,7 +2,7 @@
 
 const superagent = require('superagent');
 
-exports.handler = async (event) => {
+exports.handler = async (event, context) => {
 
   let repo = event.repo.replace(/^\//, '');
   let file = event.file.replace(/^\//, '');
@@ -21,7 +21,7 @@ exports.handler = async (event) => {
   catch (e) {
     return {
       statusCode: 500,
-      body: JSON.stringify({ error: e.message }),
+      body: JSON.stringify({event, context, error: e.message }),
     };
   }
 
