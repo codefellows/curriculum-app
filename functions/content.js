@@ -4,6 +4,11 @@ const superagent = require('superagent');
 
 exports.handler = async (event, context) => {
 
+    return {
+        statusCode: 200,
+        body: JSON.stringify({event, context})
+    };
+
   let repo = event.repo.replace(/^\//, '');
   let file = event.file.replace(/^\//, '');
   let version = event.version || 'master';
