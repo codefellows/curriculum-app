@@ -3,7 +3,7 @@ import util from 'mdast-util-toc';
 export default function toc(options) {
 
   let settings = options || {};
-  let depth = settings.maxDepth || 3;
+  let depth = settings.maxDepth || 2;
   let tight = settings.tight;
   let skip = settings.skip;
 
@@ -11,7 +11,6 @@ export default function toc(options) {
 
   function transformer(node) {
     let result = util(node, {
-      // heading: heading,
       maxDepth: depth,
       tight: tight,
       skip: skip,
@@ -28,7 +27,6 @@ export default function toc(options) {
       node.children.slice(result.endIndex)
     );
 
-    console.log('Node', node);
   }
 
 }

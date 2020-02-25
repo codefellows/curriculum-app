@@ -18,13 +18,13 @@ exports.handler = async (event, context) => {
 
     return {
       statusCode: 200,
-      body: content.text
+      body: content.text,
     };
   }
   catch (e) {
     return {
       statusCode: 500,
-      body: JSON.stringify({event, context, error: e.message }),
+      body: JSON.stringify({ event, context, error: e.message }),
     };
   }
 

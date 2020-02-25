@@ -7,10 +7,7 @@ import Content from './content.js';
 
 import './style/site.scss';
 
-// Needs to be deployed
 const proxy = process.env.REACT_APP_GITHUB_PROXY;
-console.log(process.env);
-console.log(proxy);
 
 export default function App() {
   const [content, setContent] = useState('');
@@ -29,6 +26,13 @@ export default function App() {
     let file = qs.file.replace(/^\//, '');
     getContent(repo, file, version);
   });
+
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     window.scrollTo(0, 0);
+  //     console.log(location.hash);
+  //   }, 100);
+  // }, [location]);
 
   return (
     <>
