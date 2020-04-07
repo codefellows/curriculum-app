@@ -24,7 +24,7 @@ exports.handler = async (event, context) => {
   catch (e) {
     return {
       statusCode: 500,
-      body: JSON.stringify({ event, context, error: e.message }),
+      body: JSON.stringify({ url, token, event, context, error: e.message }),
     };
   }
 
