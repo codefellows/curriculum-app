@@ -4,14 +4,13 @@ const superagent = require('superagent');
 
 exports.handler = async (event) => {
 
-
   try {
-    let request = JSON.parse(event.body);
-    let repo = request.repo.replace(/^\//, '');
-    let version = request.version || 'master';
-    let url = `https://raw.githubusercontent.com/${repo}/${version}/manifest.json`;
+    const request = JSON.parse(event.body);
+    const repo = request.repo.replace(/^\//, '');
+    const version = request.version || 'master';
+    const url = `https://raw.githubusercontent.com/${repo}/${version}/manifest.json`;
 
-    let manifest = await superagent
+    const manifest = await superagent
       .get(url)
       .set('authorization', `Bearer ${process.env.TOKEN}`);
 

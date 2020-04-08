@@ -6,13 +6,13 @@ exports.handler = async (event, context) => {
 
   try {
 
-    let request = JSON.parse(event.body);
-    let repo = request.repo.replace(/^\//, '');
-    let file = request.file.replace(/^\//, '');
-    let version = request.version || 'master';
-    let url = `https://raw.githubusercontent.com/${repo}/${version}/${file}`;
+    const request = JSON.parse(event.body);
+    const repo = request.repo.replace(/^\//, '');
+    const file = request.file.replace(/^\//, '');
+    const version = request.version || 'master';
+    const url = `https://raw.githubusercontent.com/${repo}/${version}/${file}`;
 
-    let content = await superagent
+    const content = await superagent
       .get(url)
       .set('authorization', `Bearer ${process.env.TOKEN}`);
 
