@@ -1,29 +1,25 @@
 'use strict';
 
-const github = require('./lib/github');
+const github = require('./lib/github.js');
 
-exports.handler = async (event, context) => {
+exports.handler = async (event) => {
 
   try {
 
-    const request = JSON.parse(event.body);
-    const repo = request.repo.replace(/^\//, '');
-    const file = request.file.replace(/^\//, '');
-    const requestedVersion = request.version;
+    // const repos = await github.getRepositories();
 
-    const version = await github.getVersion(repo, requestedVersion);
-
-    const content = await github.getContent(repo, file, version);
+    const repos = ['john','cathy'];
 
     return {
       statusCode: 200,
-      body: content,
+      body: repos,
     };
+
   }
   catch (e) {
     return {
       statusCode: 500,
-      body: JSON.stringify({ event, context, error: e.message }),
+      body: JSON.stringify({ error: e.message }),
     };
   }
 
