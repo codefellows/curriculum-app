@@ -1,12 +1,12 @@
 'use strict';
 
-exports.handler = async (event,context,callback) => {
+exports.handler = async (event,context) => {
 
   const response = {
     statusCode: 200,
-    body: ['hello','world'],
+    body: JSON.stringify(['hello','world']),
   };
 
-  callback(response);
+  return response;
 
 };
