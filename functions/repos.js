@@ -1,9 +1,13 @@
 'use strict';
 
-const github = require('./lib/github.js');
+// const github = require('./lib/github.js');
 
 exports.handler = async (event,context,callback) => {
 
+  callback({
+    statusCode:200,
+    body:'John',
+  });
   try {
 
     const repos = await github.getRepositories();
