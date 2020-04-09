@@ -14,7 +14,7 @@ exports.handler = async (event,context) => {
 
     return {
       statusCode: 200,
-      body: manifest,
+      body: JSON.stringify(manifest),
     };
 
   }
