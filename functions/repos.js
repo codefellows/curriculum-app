@@ -2,25 +2,25 @@
 
 const github = require('./lib/github.js');
 
-exports.handler = async (event,context) => {
+exports.handler = async (event,context,callback) => {
 
   try {
 
-    // const repos = await github.getRepositories();
+    const repos = await github.getRepositories();
 
-    const repos = ['john','cathy'];
-
-    return {
+    let response = {
       statusCode: 200,
       body: repos,
     };
+    callback(response);
 
   }
   catch (e) {
-    return {
+    let response = {
       statusCode: 500,
       body: JSON.stringify({ error: e.message }),
     };
-  }
+    callback(response);
 
+  }
 };
