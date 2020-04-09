@@ -5,16 +5,15 @@ const github = require('./lib/github.js');
 exports.handler = async (event) => {
 
   try {
+
     const request = JSON.parse(event.body);
     const repo = request.repo.replace(/^\//, '');
-    const requestedVersion = request.version;
 
-    const version = await github.getVersion(repo, requestedVersion);
-    const manifest = await github.getManifest(repo,version);
+    const releases = await github.getReleases(repo);
 
     return {
       statusCode: 200,
-      body: manifest,
+      body: releases,
     };
 
   }

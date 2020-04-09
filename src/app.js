@@ -1,4 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+} from 'react-router-dom';
+
 import queryString from 'query-string';
 import superagent from 'superagent';
 import Header from './header.js';
@@ -21,10 +28,12 @@ export default function App() {
 
   useEffect(() => {
     let qs = queryString.parse(window.location.search);
-    let version = qs.version || 'master';
-    let repo = qs.repo.replace(/^\//, '');
-    let file = qs.file.replace(/^\//, '');
-    getContent(repo, file, version);
+    if ( qs.repo && qs.file && qs.version ) {
+      let version = qs.version || 'master';
+      let repo = qs.repo.replace(/^\//, '');
+      let file = qs.file.replace(/^\//, '');
+      getContent(repo, file, version);
+    }
   });
 
   // useEffect(() => {

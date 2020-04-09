@@ -1,20 +1,22 @@
 'use strict';
 
-const github = require('./lib/github.js');
+const superagent = require('superagent');
 
 exports.handler = async (event) => {
 
   try {
     const request = JSON.parse(event.body);
     const repo = request.repo.replace(/^\//, '');
-    const requestedVersion = request.version;
+    const version = request.version || 'master';
+    const url = `https://raw.githubusercontent.com/${repo}/${version}/manifest.json`;
 
-    const version = await github.getVersion(repo, requestedVersion);
-    const manifest = await github.getManifest(repo,version);
+    const manifest = await superagent
+      .get(url)
+      .set('authorization', `Bearer ${process.env.TOKEN}`);
 
     return {
       statusCode: 200,
-      body: manifest,
+      body: manifest.text,
     };
 
   }

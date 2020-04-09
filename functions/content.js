@@ -1,6 +1,6 @@
 'use strict';
 
-const superagent = require('superagent');
+const github = require('./lib/github');
 
 exports.handler = async (event, context) => {
 
@@ -9,22 +9,21 @@ exports.handler = async (event, context) => {
     const request = JSON.parse(event.body);
     const repo = request.repo.replace(/^\//, '');
     const file = request.file.replace(/^\//, '');
-    const version = request.version || 'master';
-    const url = `https://raw.githubusercontent.com/${repo}/${version}/${file}`;
+    const requestedVersion = request.version;
 
-    const content = await superagent
-      .get(url)
-      .set('authorization', `Bearer ${process.env.TOKEN}`);
+    const version = await github.getVersion(repo, requestedVersion);
+
+    const content = await github.getContent(repo, file, version);
 
     return {
       statusCode: 200,
-      body: content.text,
+      body: content,
     };
   }
   catch (e) {
     return {
       statusCode: 500,
-      body: JSON.stringify({ url, token, event, context, error: e.message }),
+      body: JSON.stringify({ event, context, error: e.message }),
     };
   }
 

@@ -9,8 +9,6 @@ import ReactHtmlParser from 'react-html-parser';
 
 import toc from './plugins/toc.js';
 
-
-
 export default props => {
 
   const { markdown } = props;
