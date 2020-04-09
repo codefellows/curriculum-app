@@ -10,7 +10,6 @@ exports.handler = async (event,context,callback) => {
 
     return {
       statusCode: 200,
-      headers: { 'content-type': 'application/json'},
       body: JSON.stringify(repos),
     };
 
