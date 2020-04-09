@@ -6,7 +6,9 @@ exports.handler = async (event) => {
 
   try {
 
-    const repos = await github.getRepositories();
+    // const repos = await github.getRepositories();
+
+    const repos = ['john','cathy'];
 
     return {
       statusCode: 200,
