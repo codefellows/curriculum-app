@@ -2,7 +2,7 @@
 
 const github = require('./lib/github.js');
 
-exports.handler = async (event) => {
+exports.handler = async (event,context) => {
 
   try {
 
