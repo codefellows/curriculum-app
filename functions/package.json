@@ -1,0 +1,14 @@
+{
+  "name": "functions",
+  "version": "1.0.0",
+  "description": "",
+  "keywords": [
+    "react",
+    "starter"
+  ],
+  "main": "src/index.js",
+  "dependencies": {
+    "semver": "^7.2.1",
+    "superagent": "^5.2.2"
+  }
+}
