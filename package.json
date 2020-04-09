@@ -8,6 +8,9 @@
   ],
   "main": "src/index.js",
   "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
     "mdast-util-toc": "^5.0.2",
     "node-sass": "4.13.1",
     "query-string": "6.11.0",
@@ -24,13 +27,15 @@
     "remark-sectionize": "^1.1.1",
     "remark-slug": "^5.1.2",
     "remark-toc": "^7.0.0",
-    "superagent": "5.2.2",
+    "semver": "^7.2.1",
+    "superagent": "^5.2.2",
     "unified": "^8.4.2"
   },
   "devDependencies": {
     "typescript": "3.8.2"
   },
   "scripts": {
+    "proxy": "node proxy/proxy.js",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
