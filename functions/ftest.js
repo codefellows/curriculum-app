@@ -7,19 +7,6 @@ exports.handler = async (event,context,callback) => {
     body: ['hello','world'],
   };
 
-  return response;
+  callback(response);
 
-  try {
-    return {
-      statusCode: 200,
-      body: repos,
-    };
-
-  }
-  catch (e) {
-    return {
-      statusCode: 500,
-      body: JSON.stringify({ error: e.message }),
-    };
-  }
 };
