@@ -8,8 +8,6 @@ const github = module.exports = {};
 github.getReleases = (repo) => {
   const url = `https://api.github.com/repos/${repo}/releases`;
 
-  return [url, process.env.TOKEN];
-
   return superagent
     .get(url)
     .set('authorization', `Bearer ${process.env.TOKEN}`)
