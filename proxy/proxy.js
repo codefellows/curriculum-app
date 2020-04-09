@@ -14,7 +14,7 @@ let app = express();
 app.use(cors());
 app.use(express.json());
 
-app.post('/', page);
+app.post('/content', page);
 app.post('/manifest', manifest);
 app.post('/releases', releases);
 app.post('/repos', repos);

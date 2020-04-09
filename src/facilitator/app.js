@@ -13,8 +13,9 @@ export default function App() {
   const [content, setContent] = useState('');
 
   const getContent = async (repo, file, version) => {
+    let url = `${proxy}/content`;
     let body = { repo, file, version };
-    let response = await superagent.post(proxy).send(body);
+    let response = await superagent.post(url).send(body);
     let markdown = response.text;
     setContent(markdown);
   };
