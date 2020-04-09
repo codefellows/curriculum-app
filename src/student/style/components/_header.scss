@@ -20,29 +20,6 @@ body {
         order: 2;
         padding: 0;
       }
-
-      > nav {
-        display: flex;
-        flex-direction: row;
-        font-size: 1rem;
-        order: 1;
-
-        ul {
-          display: flex;
-
-          li {
-            margin: 0 1rem;
-
-            label {
-              display: flex;
-              flex-direction: column;
-              font-size: 1.25rem;
-              height: 100%;
-              justify-content: space-evenly;
-            }
-          }
-        }
-      }
     }
   }
 }

@@ -7,7 +7,7 @@ import sectionize from 'remark-sectionize';
 import html from 'remark-html';
 import ReactHtmlParser from 'react-html-parser';
 
-import toc from './plugins/toc.js';
+import toc from '../plugins/toc.js';
 
 export default props => {
 
