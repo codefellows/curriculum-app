@@ -31,8 +31,9 @@ export default props => {
 
   const getRepos = async () => {
     let response = await superagent.post(`${proxy}/repos`);
-    console.log(response);
-    let repos = response.body;
+    let repos = JSON.parse(response.text);
+    console.log('text', response.text);
+    console.log('body', response.body);
     setRepos(repos);
     setVersions([]);
     setPages([]);
