@@ -1,6 +1,6 @@
 'use strict';
 
-// const github = require('./lib/github.js');
+const github = require('./lib/github.js');
 
 exports.handler = async (event,context) => {
 
@@ -9,13 +9,11 @@ exports.handler = async (event,context) => {
     const request = JSON.parse(event.body);
     const repo = request.repo.replace(/^\//, '');
 
-    // const releases = await github.getReleases(repo);
-
-    const releases = [repo];
+    const releases = await github.getReleases(repo);
 
     return {
       statusCode: 200,
-      body: releases,
+      body: JSON.stringify(releases),
     };
 
   }
