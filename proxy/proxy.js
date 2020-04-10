@@ -47,7 +47,7 @@ async function manifest(req, res) {
 
   try {
     let response = await getManifest(request);
-    res.status(response.statusCode).json(response.body);
+    res.status(response.statusCode).send(response.text);
   } catch(e) {
     res.status(500).send(e.message);
   }
@@ -60,7 +60,7 @@ async function releases(req,res) {
     let body = { repo };
     let request = { body: JSON.stringify(body) };
     let response = await getReleases(request);
-    res.status(response.statusCode).json(response.body);
+    res.status(response.statusCode).send(response.body);
   } catch (e) {
     res.status(500).send(e.message);
   }
@@ -69,7 +69,7 @@ async function releases(req,res) {
 async function repos(req, res) {
   try {
     let response = await getRepos();
-    res.status(response.statusCode).json(response.body);
+    res.status(response.statusCode).send(response.body);
   } catch(e) {
     res.status(500).send(e.message);
   }

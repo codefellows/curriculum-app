@@ -41,7 +41,7 @@ export default props => {
     console.log('getting something');
     let qs = queryString.parse(window.location.search);
     if (qs.repo) {
-      let repo = qs.repo.replace(/^\//, '');
+      // let repo = qs.repo.replace(/^\//, '');
     }
   }, [repos]);
 
@@ -68,7 +68,12 @@ export default props => {
           <li>
             <label>
               <span>Version</span>
-              <select onChange={changeCourse}>
+              <select onChange={changeVersion}>
+                {
+                  versions.map((version, idx) =>
+                    <option key={`version-${idx}`} value={version}>{version}</option>,
+                  )
+                }
               </select>
             </label>
           </li>
@@ -76,6 +81,11 @@ export default props => {
             <label>
               <span>Page</span>
               <select onChange={changePage}>
+                {
+                  pages.map((page, idx) =>
+                    <option key={`page-${idx}`} value={page}>{page}</option>,
+                  )
+                }
               </select>
             </label>
           </li>
