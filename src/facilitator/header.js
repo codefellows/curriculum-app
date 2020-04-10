@@ -1,53 +1,12 @@
-import React, {useState, useEffect} from 'react';
-import queryString from 'query-string';
+import React, {useContext, useEffect} from 'react';
 import superagent from 'superagent';
+import {CurriculumContext} from '../context/curriculum';
 
 const proxy = process.env.REACT_APP_GITHUB_PROXY;
 
-export default props => {
+function Header(props) {
 
-  const [repos, setRepos] = useState([]);
-  const [versions, setVersions] = useState([]);
-  const [pages, setPages] = useState([]);
-
-  const changeCourse = () => {
-
-  };
-
-  const changeVersion = () => {
-
-  };
-
-  const changePage = () => {
-
-  };
-
-  const getVersions = async () => {
-    // let body = { repo, file, version };
-    // let response = await superagent.post(proxy).send(body);
-    // let markdown = response.text;
-    // setContent(markdown);
-  };
-
-  const getRepos = async () => {
-    let response = await superagent.post(`${proxy}/repos`);
-    let repos = JSON.parse(response.text);
-    setRepos(repos);
-    setVersions([]);
-    setPages([]);
-  };
-
-  useEffect(() => {
-    console.log('getting something');
-    let qs = queryString.parse(window.location.search);
-    if (qs.repo) {
-      // let repo = qs.repo.replace(/^\//, '');
-    }
-  }, [repos]);
-
-  useEffect( () => {
-    getRepos();
-  }, []);
+  const curriculum = useContext(CurriculumContext);
 
   return (
     <header>
@@ -57,10 +16,11 @@ export default props => {
           <li>
             <label>
               <span>Course</span>
-              <select onChange={changeCourse}>
+              <select onChange={(e) => curriculum.selectCourse(e.target.value)}>
+                <option>Choose Course</option>
                 {
-                  repos.map( (repo,idx) =>
-                    <option key={`repo-${idx}`} value={repo}>{repo}</option>,
+                  curriculum.repositories.map( (repo,idx) =>
+                    <option key={`repo-${idx}`} value={`/codefellows/${repo}`}>{repo}</option>,
                   )}
               </select>
             </label>
@@ -68,22 +28,11 @@ export default props => {
           <li>
             <label>
               <span>Version</span>
-              <select onChange={changeVersion}>
+              <select onChange={ (e) => curriculum.selectVersion(e.target.value)}>
+                <option>Choose Version</option>
                 {
-                  versions.map((version, idx) =>
+                  curriculum.versions.map((version, idx) =>
                     <option key={`version-${idx}`} value={version}>{version}</option>,
-                  )
-                }
-              </select>
-            </label>
-          </li>
-          <li>
-            <label>
-              <span>Page</span>
-              <select onChange={changePage}>
-                {
-                  pages.map((page, idx) =>
-                    <option key={`page-${idx}`} value={page}>{page}</option>,
                   )
                 }
               </select>
@@ -94,4 +43,6 @@ export default props => {
     </header>
   );
 
-};
+}
+
+export default Header;

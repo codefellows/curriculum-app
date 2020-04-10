@@ -58,6 +58,6 @@ github.getManifest = (repo, version) => {
   return superagent
     .get(url)
     .set('authorization', `Bearer ${process.env.TOKEN}`)
-    .then( response => response.body );
+    .then( response => response.text );
 
 };

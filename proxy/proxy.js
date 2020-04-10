@@ -47,7 +47,7 @@ async function manifest(req, res) {
 
   try {
     let response = await getManifest(request);
-    res.status(response.statusCode).send(response.text);
+    res.status(response.statusCode).send(response.body);
   } catch(e) {
     res.status(500).send(e.message);
   }
