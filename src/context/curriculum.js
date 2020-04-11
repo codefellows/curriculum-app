@@ -18,14 +18,6 @@ function Curriculum(props) {
   const [file, setFile] = useState('');
 
 
-  // Used internally to load the initial set of courses
-  const getCourses = async () => {
-    const url = `${proxy}/repos`;
-    let response = await superagent.post(url);
-    let courseRepos = JSON.parse(response.text);
-    setRepositories(courseRepos);
-  };
-
   // Exported event handlers.  As the user changes their selections from the UI,
   // these functions use their setState methods to change `selections`
   // Below, there are useEffect hooks watching for selections to change and re-pull data
@@ -43,34 +35,58 @@ function Curriculum(props) {
 
   // Used internally to get page Markdown ... should run any time the file or version changes
   const getMarkdown = useCallback( async () => {
-    if ( repo && version && file ) {
-      console.log('Fetching', repo, version, file);
-      const url = `${proxy}/content`;
-      const selections = {repo,version,file};
-      const response = await superagent.post(url).send(selections);
-      const rawMarkdown = response.text;
-      setMarkdown(rawMarkdown);
+    try {
+      if ( repo && version && file ) {
+        console.log('Fetching', repo, version, file);
+        const url = `${proxy}/content`;
+        const selections = {repo,version,file};
+        const response = await superagent.post(url).send(selections);
+        const rawMarkdown = response.text;
+        setMarkdown(rawMarkdown);
+      }
+    } catch(e) {
+      console.warn('ERROR: getMarkdown()', e.message);
     }
   },[repo,version,file]);
 
   // Used internally to read the course manifest and load the page navigator
   const getPages = useCallback( async () => {
-    console.log('getting pages');
-    const url = `${proxy}/manifest`;
-    const selections = {repo,version};
-    let response = await superagent.post(url).send(selections);
-    let manifest = JSON.parse(response.text);
-    setPages(manifest);
+    try {
+      const url = `${proxy}/manifest`;
+      const selections = {repo,version};
+      let response = await superagent.post(url).send(selections);
+      let manifest = JSON.parse(response.text);
+      setPages(manifest);
+    } catch(e) {
+      console.warn('ERROR getPages()', e.message);
+    }
   }, [repo,version]);
 
   // Used internally to load versions after a course has been selected
   const getVersions = useCallback( async () => {
-    const url = `${proxy}/releases`;
-    const selections = {repo};
-    let response = await superagent.post(url).send(selections);
-    let availableVersions = JSON.parse(response.text);
-    setVersions(availableVersions);
+    try {
+      const url = `${proxy}/releases`;
+      const selections = {repo};
+      let response = await superagent.post(url).send(selections);
+      let availableVersions = JSON.parse(response.text);
+      setVersions(availableVersions);
+    } catch(e) {
+      console.warn('ERROR getVersions()', e.message);
+    }
   }, [repo]);
+
+  // Used internally to load the initial set of courses
+  const getCourses = async () => {
+    try {
+      const url = `${proxy}/repos`;
+      let response = await superagent.post(url);
+      let courseRepos = JSON.parse(response.text);
+      setRepositories(courseRepos);
+    } catch(e) {
+      console.warn('ERROR getCourses()', e.message);
+    }
+  };
+
 
   useEffect( () => {
     repo && getVersions();

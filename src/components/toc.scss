@@ -1,0 +1,56 @@
+html {
+  scroll-behavior: smooth;
+}
+
+.content {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  padding: 1rem 3rem;
+
+  ul {
+    p {
+      margin: 0;
+      padding: 0;
+    }
+  }
+
+  > ul {
+    order: 2;
+    align-self: start;
+    border-left: 1px solid #efefef;
+    list-style-type: none;
+    margin: 0 0 0 4rem;
+    padding: 0;
+    position: sticky;
+    top: 8rem;
+
+    ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    li {
+      margin: 0;
+      margin-left: 1rem;
+      padding: 0;
+    }
+
+    a {
+      color: #ccc;
+      display: block;
+      padding: .125rem 0;
+      text-decoration: none;
+      transition: all 50ms ease-in-out;
+
+      &:hover, &:focus {
+        color: #666;
+      }
+
+      &.active {
+        color: #333;
+        font-weight: 500;
+      }
+    }
+  }
+}

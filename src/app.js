@@ -6,6 +6,8 @@ import {
   Route,
 } from 'react-router-dom';
 
+import 'typeface-roboto';
+
 import Facilitator from './facilitator/app.js';
 import Student from './student/app.js';
 

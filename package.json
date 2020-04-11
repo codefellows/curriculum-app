@@ -8,6 +8,9 @@
   ],
   "main": "src/index.js",
   "dependencies": {
+    "@material-ui/core": "^4.9.9",
+    "@material-ui/icons": "^4.9.1",
+    "@material-ui/lab": "^4.0.0-alpha.48",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
@@ -29,6 +32,7 @@
     "remark-toc": "^7.0.0",
     "semver": "^7.2.1",
     "superagent": "^5.2.2",
+    "typeface-roboto": "0.0.75",
     "unified": "^8.4.2"
   },
   "devDependencies": {

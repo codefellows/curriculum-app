@@ -24,7 +24,7 @@ export default function toc(options) {
     node.children = [].concat(
       node.children.slice(0, result.index),
       result.map,
-      node.children.slice(result.endIndex)
+      node.children.slice(result.endIndex),
     );
 
   }
