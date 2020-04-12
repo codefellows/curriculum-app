@@ -1,6 +1,9 @@
 import React, {useState, useEffect, useCallback} from 'react';
 import superagent from 'superagent';
 import queryString from 'query-string';
+import getTitle from 'get-title-markdown';
+
+import manifest from './manifest.json';
 
 const proxy = process.env.REACT_APP_GITHUB_PROXY;
 
@@ -13,6 +16,7 @@ function Curriculum(props) {
   const [versions, setVersions] = useState([]);
   const [pages, setPages] = useState([]);
 
+  const [title, setTitle] = useState('');
   const [repo, setRepo] = useState('');
   const [version, setVersion] = useState('');
   const [file, setFile] = useState('');
@@ -22,11 +26,18 @@ function Curriculum(props) {
   // these functions use their setState methods to change `selections`
   // Below, there are useEffect hooks watching for selections to change and re-pull data
   const selectCourse = async (repo) => {
+    document.title = repo.split('/').pop();
     setRepo(repo);
+    setVersion('');
+    setFile('');
+    setPages([]);
   };
 
   const selectVersion = async (version) => {
+    document.title = `${repo.split('/').pop()} @ ${version}`;
     setVersion(version);
+    setFile('');
+    setPages([]);
   };
 
   const selectPage = async (file) => {
@@ -37,11 +48,11 @@ function Curriculum(props) {
   const getMarkdown = useCallback( async () => {
     try {
       if ( repo && version && file ) {
-        console.log('Fetching', repo, version, file);
         const url = `${proxy}/content`;
         const selections = {repo,version,file};
         const response = await superagent.post(url).send(selections);
         const rawMarkdown = response.text;
+        setTitle( getTitle(rawMarkdown) );
         setMarkdown(rawMarkdown);
       }
     } catch(e) {
@@ -51,15 +62,16 @@ function Curriculum(props) {
 
   // Used internally to read the course manifest and load the page navigator
   const getPages = useCallback( async () => {
-    try {
-      const url = `${proxy}/manifest`;
-      const selections = {repo,version};
-      let response = await superagent.post(url).send(selections);
-      let manifest = JSON.parse(response.text);
-      setPages(manifest);
-    } catch(e) {
-      console.warn('ERROR getPages()', e.message);
-    }
+    repo && version && setPages(manifest);
+    // try {
+    //   const url = `${proxy}/manifest`;
+    //   const selections = {repo,version};
+    //   let response = await superagent.post(url).send(selections);
+    //   let manifest = JSON.parse(response.text);
+    //   setPages(manifest);
+    // } catch(e) {
+    //   console.warn('ERROR getPages()', e.message);
+    // }
   }, [repo,version]);
 
   // Used internally to load versions after a course has been selected
@@ -103,19 +115,17 @@ function Curriculum(props) {
   // This should only run once, and trigger getMarkdown by changing the selctions
   // based on the query string
   useEffect(() => {
+    document.title = 'Curriculum Browser';
     let qs = queryString.parse(window.location.search);
     if ( qs.repo && qs.file && qs.version ) {
       setVersion(qs.version);
       setRepo(qs.repo.replace(/^\//, ''));
       setFile(qs.file.replace(/^\//, ''));
     }
-  }, []);
-
-  useEffect(() => {
     getCourses();
   }, []);
 
-  const exports = {markdown, repositories, versions, pages, getCourses, selectCourse, selectVersion, selectPage };
+  const exports = {markdown, repositories, versions, pages, title, getCourses, selectCourse, selectVersion, selectPage };
 
   return (
     <CurriculumContext.Provider value={exports}>

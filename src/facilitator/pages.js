@@ -6,13 +6,25 @@ import TreeView from '@material-ui/lab/TreeView';
 import TreeItem from '@material-ui/lab/TreeItem';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import OverViewIcon from '@material-ui/icons/DoubleArrow';
+
+import {When} from '../components/if';
 
 import { CurriculumContext } from '../context/curriculum';
 
-// https://material-ui.com/components/tree-view/ ()
+const classes = {
+  module: {
+    marginBottom: '.3rem',
+  },
+  class: {
+    marginBottom: '.2rem',
+  },
+};
+
 function Pages(props) {
 
   const curriculum = useContext(CurriculumContext);
+  const sections = curriculum.pages;
 
   const useStyles = makeStyles((theme) => ({
     drawer: {
@@ -27,13 +39,13 @@ function Pages(props) {
       color: '#800000',
     },
     tree: {
+      fontSize: '.8rem',
       padding: '1rem',
+      color: '#6a6a6a',
     },
   }));
 
   const classes = useStyles();
-
-  console.log(curriculum.pages);
 
   return (
     <Drawer
@@ -53,24 +65,69 @@ function Pages(props) {
         defaultExpandIcon={<ChevronRightIcon />}
         className={classes.tree}
       >
-        <TreeItem nodeId="1" label="Applications">
-          <TreeItem nodeId="2" label="Calendar" />
-          <TreeItem nodeId="3" label="Chrome" />
-          <TreeItem nodeId="4" label="Webstorm" />
-        </TreeItem>
-        <TreeItem nodeId="5" label="Documents">
-          <TreeItem nodeId="10" label="OSS" />
-          <TreeItem nodeId="6" label="Material-UI">
-            <TreeItem nodeId="7" label="src">
-              <TreeItem nodeId="8" label="index.js" />
-              <TreeItem nodeId="9" label="tree-view.js" />
-            </TreeItem>
-          </TreeItem>
-        </TreeItem>
+        <When condition={sections.overview}>
+          <h3>Course Overview</h3>
+          {
+            sections.overview && Object.keys(sections.overview).map(page =>
+              <TreeItem nodeId={page} label={page} onClick={() => curriculum.selectPage(sections.overview[page])}></TreeItem>,
+            )
+          }
+          <Divider />
+        </When>
+
+        <When condition={sections.modules}>
+          <h3>Course Material</h3>
+        </When>
+
+        {
+          sections.modules && sections.modules.map(module =>
+            <Module key={Math.random()} module={module} />,
+          )
+        }
+
       </TreeView>
     </Drawer>
   );
 
+}
+
+function Module( {module}) {
+
+  const curriculum = useContext(CurriculumContext);
+
+  return (
+    <TreeItem nodeId={module.name} label={module.name} style={classes.module}>
+      <TreeItem
+        icon={<OverViewIcon/>}
+        nodeId={`${module.name}-overview`}
+        label='Overview' style={classes.class}
+        onClick={() => curriculum.selectPage(module.overview)}>
+      </TreeItem>
+      {
+        module.classes.map( classItem => <ClassEntry key={Math.random()} classItem={classItem} />)
+      }
+    </TreeItem>
+  );
+}
+
+function ClassEntry({classItem}) {
+
+  return (
+    <TreeItem nodeId={classItem.name} label={`${classItem.class}-${classItem.name}`} style={classes.module}>
+      {
+        Object.keys(classItem.facilitator).map( page =>
+          <ClassLink key={Math.random()} page={page} link={classItem.facilitator[page]} />,
+        )
+      }
+    </TreeItem>
+  );
+}
+
+function ClassLink({page, link}) {
+  const curriculum = useContext(CurriculumContext);
+  return (
+    <TreeItem nodeId={page} label={page} onClick={() => curriculum.selectPage(link)} style={classes.class}></TreeItem>
+  );
 }
 
 export default Pages;

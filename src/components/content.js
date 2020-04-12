@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useContext, useEffect } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 
 import slug from 'remark-slug';
 import autolink from 'remark-autolink-headings';
@@ -47,7 +47,6 @@ function Content(props) {
     document.querySelectorAll('section h2[id]').forEach((section) => { observer.observe(section); });
     document.querySelectorAll('section h3[id]').forEach((section) => { observer.observe(section); });
     document.querySelectorAll('section h4[id]').forEach((section) => { observer.observe(section); });
-
   }, [markup, observer]);
 
   // Use CSS Module to do the floating TOC

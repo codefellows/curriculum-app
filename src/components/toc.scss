@@ -4,6 +4,7 @@ html {
 
 .content {
   display: grid;
+  font-size: 1.2rem;
   grid-template-columns: 1fr 300px;
   padding: 1rem 3rem;
 
@@ -15,11 +16,12 @@ html {
   }
 
   > ul {
-    order: 2;
     align-self: start;
     border-left: 1px solid #efefef;
+    font-size: .9rem;
     list-style-type: none;
     margin: 0 0 0 4rem;
+    order: 2;
     padding: 0;
     position: sticky;
     top: 8rem;

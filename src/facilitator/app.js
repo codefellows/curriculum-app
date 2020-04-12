@@ -6,7 +6,6 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import { createMuiTheme } from '@material-ui/core/styles';
 
 import Header from './header.js';
-import Footer from './footer.js';
 import Content from '../components/content.js';
 import Pages from './pages.js';
 
@@ -34,17 +33,17 @@ const theme = createMuiTheme({
   },
 });
 
-const drawerWidth = 240;
+const drawerWidth = 320;
 
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
-    backgroundColor:'#fff',
+    backgroundColor:'#FBFCFC',
   },
   // necessary for content to be below app bar
   toolbar: theme.mixins.toolbar,
   content: {
-    backgroundColor: '#fff', // theme.palette.background.default,
+    backgroundColor: '#FBFCFC', // theme.palette.background.default,
   },
 }));
 
