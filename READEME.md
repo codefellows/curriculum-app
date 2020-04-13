@@ -28,3 +28,5 @@ GitHub Proxy
 ## Environment Variables
 
 - **REACT_APP_GITHUB_PROXY** The URL to the proxy app mentioned above
+
+http://localhost:3001/facilitator?repo=/codefellows/code-401-javascript-guide&file=/curriculum/class-38/facilitator/DEMO.md&version=2#async-demo
