@@ -3,7 +3,7 @@ import superagent from 'superagent';
 import queryString from 'query-string';
 import getTitle from 'get-title-markdown';
 
-import manifest from './manifest.json';
+import sampleManifest from './manifest.json';
 
 const proxy = process.env.REACT_APP_GITHUB_PROXY;
 
@@ -62,16 +62,18 @@ function Curriculum(props) {
 
   // Used internally to read the course manifest and load the page navigator
   const getPages = useCallback( async () => {
-    repo && version && setPages(manifest);
-    // try {
-    //   const url = `${proxy}/manifest`;
-    //   const selections = {repo,version};
-    //   let response = await superagent.post(url).send(selections);
-    //   let manifest = JSON.parse(response.text);
-    //   setPages(manifest);
-    // } catch(e) {
-    //   console.warn('ERROR getPages()', e.message);
-    // }
+    // repo && version && setPages(sampleManifest);
+    try {
+      if (repo && version) {
+        const url = `${proxy}/manifest`;
+        const selections = {repo,version};
+        let response = await superagent.post(url).send(selections);
+        let manifest = JSON.parse(response.text);
+        setPages(manifest);
+      }
+    } catch(e) {
+      console.warn('ERROR getPages()', e.message);
+    }
   }, [repo,version]);
 
   // Used internally to load versions after a course has been selected
