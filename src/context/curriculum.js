@@ -3,7 +3,7 @@ import superagent from 'superagent';
 import queryString from 'query-string';
 import getTitle from 'get-title-markdown';
 
-import sampleManifest from './manifest.json';
+// import sampleManifest from './manifest.json';
 
 const proxy = process.env.REACT_APP_GITHUB_PROXY;
 
