@@ -3,7 +3,7 @@ import superagent from 'superagent';
 import queryString from 'query-string';
 import getTitle from 'get-title-markdown';
 
-// import sampleManifest from './manifest.json';
+import sampleManifest from './manifest.json';
 
 const proxy = process.env.REACT_APP_GITHUB_PROXY;
 
@@ -16,6 +16,7 @@ function Curriculum(props) {
   const [versions, setVersions] = useState([]);
   const [pages, setPages] = useState([]);
 
+  const [classInfo, setClass] = useState({});
   const [title, setTitle] = useState('');
   const [repo, setRepo] = useState('');
   const [version, setVersion] = useState('');
@@ -30,6 +31,7 @@ function Curriculum(props) {
     setRepo(repo);
     setVersion('');
     setFile('');
+    setMarkdown('');
     setPages([]);
   };
 
@@ -37,6 +39,7 @@ function Curriculum(props) {
     document.title = `${repo.split('/').pop()} @ ${version}`;
     setVersion(version);
     setFile('');
+    setMarkdown('');
     setPages([]);
   };
 
@@ -62,7 +65,7 @@ function Curriculum(props) {
 
   // Used internally to read the course manifest and load the page navigator
   const getPages = useCallback( async () => {
-    // repo && version && setPages(sampleManifest);
+    repo && version && setPages(sampleManifest); return;
     try {
       if (repo && version) {
         const url = `${proxy}/manifest`;
@@ -127,7 +130,21 @@ function Curriculum(props) {
     getCourses();
   }, []);
 
-  const exports = {markdown, repositories, versions, pages, title, getCourses, selectCourse, selectVersion, selectPage };
+  const exports = {
+    markdown,
+    repositories,
+    versions,
+    pages,
+    file,
+    title,
+    repo,
+    classInfo,
+    setClass,
+    getCourses,
+    selectCourse,
+    selectVersion,
+    selectPage,
+  };
 
   return (
     <CurriculumContext.Provider value={exports}>

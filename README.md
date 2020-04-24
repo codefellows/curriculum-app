@@ -29,4 +29,18 @@ GitHub Proxy
 
 - **REACT_APP_GITHUB_PROXY** The URL to the proxy app mentioned above
 
-http://localhost:3001/facilitator?repo=/codefellows/code-401-javascript-guide&file=/curriculum/class-38/facilitator/DEMO.md&version=2#async-demo
+## Sample URLs
+
+Facilitator
+
+Home: <http://localhost:3001/facilitator>
+Direct: <http://localhost:3001/facilitator?repo=/codefellows/code-401-javascript-guide&file=/curriculum/class-07/facilitator/DEMO.md&version=2#overview>
+
+Canvas Assignment
+
+<http://localhost:3001/assignment?repo=/codefellows/code-401-javascript-guide&file=/curriculum/class-03/README.md&version=2>
+
+Student / Class Page (links to the class repo)
+
+Home: <http://localhost:3001/student/codefellows/code-401-javascript-guide>
+Direct: http://localhost:3001/student/codefellows/code-401-javascript-guide/module-1/class-01

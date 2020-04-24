@@ -1,17 +1,22 @@
 {
   "overview": {
     "Overview": "/README.md",
-    "Facilitator's Guide": "/facilitator/README.md",
-    "Data Structures and Algorithms": "/facilitator/data-structures-and-algorithms.md"
+    "Data Structures and Algorithms": "/facilitator/data-structures-and-algorithms.md",
+    "facilitator": {
+      "Facilitator's Guide": "/facilitator/README.md"
+    }
   },
   "modules": [
     {
+      "module": "01",
       "name": "Module 1: Node.js",
-      "overview": "/facilitator/module-1.md",
+      "overview": "/curriculum/module-01/README.md",
+      "project": "/curriculum/module-01/project/README.md",
       "classes": [
         {
           "class": "01",
           "name": "Node Ecosystem",
+          "overview": "/curriculum/class-01/README.md",
           "assignments": {
             "reading": "/curriculum/class-01/DISCUSSION.md",
             "lab": "/curriculum/class-01/lab/README.md"
@@ -26,6 +31,7 @@
         {
           "class": "02",
           "name": "Classes, Inheritance, Functional Programming",
+          "overview": "/curriculum/class-02/README.md",
           "assignments": {
             "reading": "/curriculum/class-02/DISCUSSION.md",
             "lab": "/curriculum/class-02/lab/README.md"
@@ -40,6 +46,7 @@
         {
           "class": "03",
           "name": "Data Modeling / NoSQL",
+          "overview": "/curriculum/class-03/README.md",
           "assignments": {
             "reading": "/curriculum/class-03/DISCUSSION.md",
             "lab": "/curriculum/class-03/lab/README.md"
@@ -54,6 +61,7 @@
         {
           "class": "04",
           "name": "Advanced Mongo/Mongoose",
+          "overview": "/curriculum/class-04/README.md",
           "assignments": {
             "reading": "/curriculum/class-04/DISCUSSION.md",
             "lab": "/curriculum/class-04/lab/README.md"
@@ -68,12 +76,15 @@
       ]
     },
     {
+      "module": "02",
       "name": "Module 2: APIs",
       "overview": "/facilitator/module-2.md",
+      "project": "/curriculum/module-02/project/README.md",
       "classes": [
         {
           "class": "06",
           "name": "APIs",
+          "overview": "/curriculum/class-06/README.md",
           "assignments": {
             "reading": "/curriculum/class-06/DISCUSSION.md",
             "lab": "/curriculum/class-06/lab/README.md"
@@ -88,6 +99,7 @@
         {
           "class": "07",
           "name": "Express",
+          "overview": "/curriculum/class-07/README.md",
           "assignments": {
             "reading": "/curriculum/class-07/DISCUSSION.md",
             "lab": "/curriculum/class-07/lab/README.md"
@@ -102,6 +114,7 @@
         {
           "class": "08",
           "name": "Express Routing, CRUD",
+          "overview": "/curriculum/class-08/README.md",
           "assignments": {
             "reading": "/curriculum/class-08/DISCUSSION.md",
             "lab": "/curriculum/class-08/lab/README.md"
@@ -116,6 +129,7 @@
         {
           "class": "09",
           "name": "API Server",
+          "overview": "/curriculum/class-09/README.md",
           "assignments": {
             "reading": "/curriculum/class-09/DISCUSSION.md",
             "lab": "/curriculum/class-09/lab/README.md"
@@ -130,12 +144,15 @@
       ]
     },
     {
+      "module": "03",
       "name": "Module 3: Authentication",
       "overview": "/facilitator/module-3.md",
+      "project": "/curriculum/module-03/project/README.md",
       "classes": [
         {
           "class": "11",
           "name": "Basic Authentication",
+          "overview": "/curriculum/class-11/README.md",
           "assignments": {
             "reading": "/curriculum/class-11/DISCUSSION.md",
             "lab": "/curriculum/class-11/lab/README.md"
@@ -150,6 +167,7 @@
         {
           "class": "12",
           "name": "OAuth",
+          "overview": "/curriculum/class-12/README.md",
           "assignments": {
             "reading": "/curriculum/class-12/DISCUSSION.md",
             "lab": "/curriculum/class-12/lab/README.md"
@@ -164,6 +182,7 @@
         {
           "class": "13",
           "name": "Bearer Authentication",
+          "overview": "/curriculum/class-12/README.md",
           "assignments": {
             "reading": "/curriculum/class-13/DISCUSSION.md",
             "lab": "/curriculum/class-13/lab/README.md"
@@ -178,6 +197,7 @@
         {
           "class": "14",
           "name": "Access Control (ACL)",
+          "overview": "/curriculum/class-14/README.md",
           "assignments": {
             "reading": "/curriculum/class-14/DISCUSSION.md",
             "lab": "/curriculum/class-14/lab/README.md"
@@ -192,12 +212,15 @@
       ]
     },
     {
+      "module": "04",
       "name": "Module 4: Realtime",
       "overview": "/facilitator/module-4.md",
+      "project": "/curriculum/module-04/project/README.md",
       "classes": [
         {
           "class": "16",
           "name": "Event Driven Applications",
+          "overview": "/curriculum/class-16/README.md",
           "assignments": {
             "reading": "/curriculum/class-16/DISCUSSION.md",
             "lab": "/curriculum/class-16/lab/README.md"
@@ -212,6 +235,7 @@
         {
           "class": "17",
           "name": "TCP",
+          "overview": "/curriculum/class-17/README.md",
           "assignments": {
             "reading": "/curriculum/class-17/DISCUSSION.md",
             "lab": "/curriculum/class-17/lab/README.md"
@@ -226,6 +250,7 @@
         {
           "class": "18",
           "name": "Socket.io",
+          "overview": "/curriculum/class-18/README.md",
           "assignments": {
             "reading": "/curriculum/class-18/DISCUSSION.md",
             "lab": "/curriculum/class-18/lab/README.md"
@@ -240,6 +265,7 @@
         {
           "class": "19",
           "name": "Message Queues",
+          "overview": "/curriculum/class-19/README.md",
           "assignments": {
             "reading": "/curriculum/class-19/DISCUSSION.md",
             "lab": "/curriculum/class-19/lab/README.md"
@@ -254,12 +280,15 @@
       ]
     },
     {
+      "module": "05",
       "name": "Module 5: React",
       "overview": "/facilitator/module-5.md",
+      "project": "/curriculum/module-05/project/README.md",
       "classes": [
         {
           "class": "26",
           "name": "Component Driven Design",
+          "overview": "/curriculum/class-26/README.md",
           "assignments": {
             "reading": "/curriculum/class-26/DISCUSSION.md",
             "lab": "/curriculum/class-26/lab/README.md"
@@ -274,6 +303,7 @@
         {
           "class": "27",
           "name": "React Testing and Deployment",
+          "overview": "/curriculum/class-27/README.md",
           "assignments": {
             "reading": "/curriculum/class-27/DISCUSSION.md",
             "lab": "/curriculum/class-27/lab/README.md"
@@ -288,6 +318,7 @@
         {
           "class": "28",
           "name": "Props and State",
+          "overview": "/curriculum/class-28/README.md",
           "assignments": {
             "reading": "/curriculum/class-28/DISCUSSION.md",
             "lab": "/curriculum/class-28/lab/README.md"
@@ -302,6 +333,7 @@
         {
           "class": "29",
           "name": "Component Composition",
+          "overview": "/curriculum/class-29/README.md",
           "assignments": {
             "reading": "/curriculum/class-29/DISCUSSION.md",
             "lab": "/curriculum/class-29/lab/README.md"
@@ -316,12 +348,15 @@
       ]
     },
     {
+      "module": "06",
       "name": "Module 6: Hooks and Context",
       "overview": "/facilitator/module-6.md",
+      "project": "/curriculum/module-06/project/README.md",
       "classes": [
         {
           "class": "31",
           "name": "Hooks API",
+          "overview": "/curriculum/class-31/README.md",
           "assignments": {
             "reading": "/curriculum/class-31/DISCUSSION.md",
             "lab": "/curriculum/class-31/lab/README.md"
@@ -336,6 +371,7 @@
         {
           "class": "32",
           "name": "Custom Hooks",
+          "overview": "/curriculum/class-32/README.md",
           "assignments": {
             "reading": "/curriculum/class-32/DISCUSSION.md",
             "lab": "/curriculum/class-32/lab/README.md"
@@ -350,6 +386,7 @@
         {
           "class": "33",
           "name": "Context API",
+          "overview": "/curriculum/class-33/README.md",
           "assignments": {
             "reading": "/curriculum/class-33/DISCUSSION.md",
             "lab": "/curriculum/class-33/lab/README.md"
@@ -364,6 +401,7 @@
         {
           "class": "34",
           "name": "Login and Auth",
+          "overview": "/curriculum/class-34/README.md",
           "assignments": {
             "reading": "/curriculum/class-34/DISCUSSION.md",
             "lab": "/curriculum/class-34/lab/README.md"
@@ -378,12 +416,15 @@
       ]
     },
     {
+      "module": "07",
       "name": "Module 7: Redux",
       "overview": "/facilitator/module-7.md",
+      "project": "/curriculum/module-07/project/README.md",
       "classes": [
         {
           "class": "36",
           "name": "Application State with Redux",
+          "overview": "/curriculum/class-36/README.md",
           "assignments": {
             "reading": "/curriculum/class-36/DISCUSSION.md",
             "lab": "/curriculum/class-36/lab/README.md"
@@ -398,6 +439,7 @@
         {
           "class": "37",
           "name": "Combined Reducers",
+          "overview": "/curriculum/class-37/README.md",
           "assignments": {
             "reading": "/curriculum/class-37/DISCUSSION.md",
             "lab": "/curriculum/class-37/lab/README.md"
@@ -412,6 +454,7 @@
         {
           "class": "38",
           "name": "Asynchronous Actions",
+          "overview": "/curriculum/class-38/README.md",
           "assignments": {
             "reading": "/curriculum/class-38/DISCUSSION.md",
             "lab": "/curriculum/class-38/lab/README.md"
@@ -425,7 +468,8 @@
         },
         {
           "class": "39",
-          "name": "Additional Reduc Topics",
+          "name": "Additional Redux Topics",
+          "overview": "/curriculum/class-39/README.md",
           "assignments": {
             "reading": "/curriculum/class-39/DISCUSSION.md",
             "lab": "/curriculum/class-39/lab/README.md"
@@ -440,12 +484,15 @@
       ]
     },
     {
+      "module": "08",
       "name": "Module 8: React Native & Other Frameworks",
       "overview": "/facilitator/module-8.md",
+      "project": "/curriculum/module-08/project/README.md",
       "classes": [
         {
           "class": "41",
           "name": "React Native",
+          "overview": "/curriculum/class-41/README.md",
           "assignments": {
             "reading": "/curriculum/class-41/DISCUSSION.md",
             "lab": "/curriculum/class-41/lab/README.md"
@@ -460,6 +507,7 @@
         {
           "class": "42",
           "name": "React Native, Continued",
+          "overview": "/curriculum/class-42/README.md",
           "assignments": {
             "reading": "/curriculum/class-42/DISCUSSION.md",
             "lab": "/curriculum/class-42/lab/README.md"
@@ -474,6 +522,7 @@
         {
           "class": "43",
           "name": "Gatsby, next.js, and other JS Frameworks",
+          "overview": "/curriculum/class-443README.md",
           "assignments": {
             "reading": "/curriculum/class-43/DISCUSSION.md",
             "lab": "/curriculum/class-43/lab/README.md"
@@ -488,6 +537,7 @@
         {
           "class": "44",
           "name": "Javascript Frameworks",
+          "overview": "/curriculum/class-44/README.md",
           "assignments": {
             "reading": "/curriculum/class-44/DISCUSSION.md",
             "lab": "/curriculum/class-44/lab/README.md"

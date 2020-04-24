@@ -3,7 +3,7 @@ import util from 'mdast-util-toc';
 export default function toc(options) {
 
   let settings = options || {};
-  let depth = settings.maxDepth || 2;
+  let depth = settings.maxDepth || 3;
   let tight = settings.tight;
   let skip = settings.skip;
 

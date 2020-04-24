@@ -2,6 +2,10 @@ html {
   scroll-behavior: smooth;
 }
 
+.MuiTreeItem-label {
+  text-transform: capitalize;
+}
+
 .content {
   display: grid;
   font-size: 1.2rem;

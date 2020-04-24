@@ -6,13 +6,16 @@ import TreeView from '@material-ui/lab/TreeView';
 import TreeItem from '@material-ui/lab/TreeItem';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import OverViewIcon from '@material-ui/icons/DoubleArrow';
 
 import {When} from '../components/if';
 
 import { CurriculumContext } from '../context/curriculum';
 
 const classes = {
+  overview: {
+    color: 'maroon',
+    marginBottom: '.3rem',
+  },
   module: {
     marginBottom: '.3rem',
   },
@@ -35,6 +38,7 @@ function Pages(props) {
       width: props.drawerWidth,
     },
     title: {
+      fontSize: '1rem',
       padding:'0 2rem',
       color: '#800000',
     },
@@ -47,6 +51,8 @@ function Pages(props) {
 
   const classes = useStyles();
 
+  const repo = curriculum.repo.split('/').pop();
+
   return (
     <Drawer
       className={classes.drawer}
@@ -58,7 +64,7 @@ function Pages(props) {
     >
       <div className={classes.toolbar} />
       <Divider />
-      <h2 className={classes.title}>&lt;Pages /&gt;</h2>
+      <h2 className={classes.title}>&lt;{repo} /&gt;</h2>
       <Divider />
       <TreeView
         defaultCollapseIcon={<ExpandMoreIcon />}
@@ -66,17 +72,23 @@ function Pages(props) {
         className={classes.tree}
       >
         <When condition={sections.overview}>
-          <h3>Course Overview</h3>
+          <h3>Overview</h3>
           {
             sections.overview && Object.keys(sections.overview).map(page =>
-              <TreeItem key={page} nodeId={page} label={page} onClick={() => curriculum.selectPage(sections.overview[page])}></TreeItem>,
+              typeof sections.overview[page] === 'string' &&
+                <TreeItem
+                  key={page}
+                  nodeId={page}
+                  label={page}
+                  onClick={() => curriculum.selectPage(sections.overview[page])}
+                ></TreeItem>,
             )
           }
           <Divider />
         </When>
 
         <When condition={sections.modules}>
-          <h3>Course Material</h3>
+          <h3>Class Work</h3>
         </When>
 
         {
@@ -98,10 +110,16 @@ function Module( {module}) {
   return (
     <TreeItem nodeId={module.name} label={module.name} style={classes.module}>
       <TreeItem
-        icon={<OverViewIcon/>}
+        style={classes.overview}
         nodeId={`${module.name}-overview`}
-        label='Overview' style={classes.class}
+        label='Module at a Glance'
         onClick={() => curriculum.selectPage(module.overview)}>
+      </TreeItem>
+      <TreeItem
+        style={classes.overview}
+        nodeId={`${module.name}-project`}
+        label='Project Specs'
+        onClick={() => curriculum.selectPage(module.project)}>
       </TreeItem>
       {
         module.classes.map( classItem => <ClassEntry key={Math.random()} classItem={classItem} />)
@@ -112,21 +130,21 @@ function Module( {module}) {
 
 function ClassEntry({classItem}) {
 
-  return (
-    <TreeItem nodeId={classItem.name} label={`${classItem.class}-${classItem.name}`} style={classes.module}>
-      {
-        Object.keys(classItem.facilitator).map( page =>
-          <ClassLink key={Math.random()} page={page} link={classItem.facilitator[page]} />,
-        )
-      }
-    </TreeItem>
-  );
-}
-
-function ClassLink({page, link}) {
   const curriculum = useContext(CurriculumContext);
+
+  const openClass = () => {
+    curriculum.setClass(classItem);
+    curriculum.selectPage(classItem.overview);
+  };
+
   return (
-    <TreeItem nodeId={page} label={page} onClick={() => curriculum.selectPage(link)} style={classes.class}></TreeItem>
+    <TreeItem
+      nodeId={classItem.name}
+      label={`${classItem.class}-${classItem.name}`}
+      style={classes.module}
+      onClick={openClass}
+    >
+    </TreeItem>
   );
 }
 

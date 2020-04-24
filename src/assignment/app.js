@@ -1,16 +1,13 @@
-import React, { useEffect, useCallback, useContext } from 'react';
+import React from 'react';
 
-import { useParams } from 'react-router-dom';
 
 import { ThemeProvider } from '@material-ui/core/styles';
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { createMuiTheme } from '@material-ui/core/styles';
 
-import {CurriculumContext} from '../context/curriculum';
 import Header from './header.js';
 import Content from '../components/content/content.js';
-import Pages from './pages.js';
 
 const theme = createMuiTheme({
   palette: {
@@ -50,31 +47,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function App() {
+export default function App(props) {
 
   const classes = useStyles();
-  const curriculum = useContext(CurriculumContext);
-  const { org, repo, module, classNumber } = useParams();
-
-  const setCourse = useCallback( () => {
-    if ( org && repo ) {
-      const course = `${org}/${repo}`;
-      curriculum.selectCourse(course);
-      curriculum.selectVersion('master');
-    }
-  });
-
-  useEffect( setCourse, [] );
 
   return (
     <ThemeProvider theme={theme}>
       <div className={classes.root}>
         <CssBaseline />
         <Header drawerWidth={drawerWidth} />
-        <Pages drawerWidth={drawerWidth} />
         <main className={classes.content}>
           <div className={classes.toolbar} />
-          <Content classNumber={classNumber} module={module} />
+          <Content />
         </main>
       </div>
     </ThemeProvider>

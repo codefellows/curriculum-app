@@ -1,11 +1,17 @@
-import React, {useContext} from 'react';
+import React, {useState, useContext} from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
 
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import AppBar from '@material-ui/core/AppBar';
+import Button from '@material-ui/core/Button';
+import MenuBookIcon from '@material-ui/icons/MenuBook';
+import TrackChangesIcon from '@material-ui/icons/TrackChanges';
+import HowToRegIcon from '@material-ui/icons/HowToReg';
+import ViewListIcon from '@material-ui/icons/ViewList';
 
+import {When} from '../components/if';
 import {CurriculumContext} from '../context/curriculum';
 
 function Header( {drawerWidth}) {
@@ -13,19 +19,92 @@ function Header( {drawerWidth}) {
   const curriculum = useContext(CurriculumContext);
 
   const useStyles = makeStyles((theme) => ({
-    title: {
-      flexGrow:1,
-      textAlign:'left',
+    appBar: {
+      width: `calc(100% - ${drawerWidth}px)`,
+      marginLeft: drawerWidth,
     },
+    title: {
+      alignSelf: 'end',
+      flexGrow:1,
+      textAlign:'right',
+      margin: '.5rem 1rem',
+      fontWeight: 'bold',
+      color: 'maroon',
+      fontSize: '1.2rem',
+    },
+
+    button: {
+      marginRight: '1em',
+    },
+
+    // necessary for content to be below app bar
     toolbar: theme.mixins.toolbar,
   }));
 
   const classes = useStyles();
 
+  // Probably just need to change the page below
+  const changeCourse = (e) => {
+    // setCourse(e.target.value);
+    // curriculum.selectCourse(e.target.value);
+  };
+
+  const changeVersion = (e) => {
+    // setVersion(e.target.value);
+    // curriculum.selectVersion(e.target.value);
+  };
+
   return (
     <AppBar position="fixed" className={classes.appBar}>
       <Toolbar>
-        <Typography className={classes.title} variant="h4">{curriculum.title}</Typography>
+        <When condition={curriculum?.classInfo?.overview}>
+          <Button
+            variant="contained"
+            color="default"
+            className={classes.button}
+            startIcon={<TrackChangesIcon />}
+            onClick={ () => curriculum.selectPage(curriculum.classInfo.overview) }
+          >
+          Overview
+          </Button>
+        </When>
+
+        <When condition={curriculum?.classInfo?.assignments?.reading}>
+          <Button
+            variant="contained"
+            color="default"
+            className={classes.button}
+            startIcon={<MenuBookIcon />}
+            onClick={ () => curriculum.selectPage(curriculum.classInfo.assignments.reading) }
+          >
+          Reading
+          </Button>
+        </When>
+        <When condition={curriculum?.classInfo?.assignments?.lab}>
+          <Button
+            variant="contained"
+            color="default"
+            className={classes.button}
+            startIcon={<HowToRegIcon />}
+            onClick={ () => curriculum.selectPage(curriculum.classInfo.assignments.lab) }
+          >
+          Lab
+          </Button>
+        </When>
+        <When condition={curriculum?.classInfo?.resources}>
+          <Button
+            variant="contained"
+            color="default"
+            className={classes.button}
+            startIcon={<ViewListIcon />}
+            onClick={ () => curriculum.selectPage(curriculum.classInfo.resources) }
+          >
+          Resources
+          </Button>
+        </When>
+        <When condition={curriculum.classInfo?.name}>
+          <Typography className={classes.title} variant="h1">{curriculum.classInfo.name}</Typography>
+        </When>
       </Toolbar>
     </AppBar>
   );
