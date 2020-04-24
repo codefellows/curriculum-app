@@ -4,7 +4,7 @@ const github = require('./lib/github.js');
 
 exports.handler = async (event,context,callback) => {
 
-  // For now, hardcoded list until we tag the repos
+  // For now, hardcoded list until we tag the repos with something we can search on
   const repos = [
     'code-201-guide',
     'code-301-guide',

@@ -18,7 +18,7 @@ export default function App() {
       <Router>
         <Route path="/facilitator"><Facilitator /></Route>
         <Route path="/assignment"><Assignment /></Route>
-        <Route path="/student/:org/:repo/:module/:classNumber"><Student /></Route>
+        <Route path="/student/:org/:repo"><Student /></Route>
       </Router>
     </CurriculumContext>
   );

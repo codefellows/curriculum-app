@@ -65,7 +65,7 @@ function Curriculum(props) {
 
   // Used internally to read the course manifest and load the page navigator
   const getPages = useCallback( async () => {
-    repo && version && setPages(sampleManifest); return;
+    // repo && version && setPages(sampleManifest); return;
     try {
       if (repo && version) {
         const url = `${proxy}/manifest`;
@@ -103,7 +103,6 @@ function Curriculum(props) {
       console.warn('ERROR getCourses()', e.message);
     }
   };
-
 
   useEffect( () => {
     repo && getVersions();

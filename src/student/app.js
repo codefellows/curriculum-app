@@ -58,9 +58,11 @@ export default function App() {
 
   const setCourse = useCallback( () => {
     if ( org && repo ) {
+      console.log('load');
       const course = `${org}/${repo}`;
       curriculum.selectCourse(course);
       curriculum.selectVersion('master');
+      curriculum.selectPage('/curriculum/README.md');
     }
   });
 

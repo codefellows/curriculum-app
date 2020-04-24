@@ -13,6 +13,10 @@ import {When} from '../components/if';
 import { CurriculumContext } from '../context/curriculum';
 
 const classes = {
+  overview: {
+    color: 'maroon',
+    marginBottom: '.3rem',
+  },
   module: {
     marginBottom: '.3rem',
   },
@@ -68,8 +72,8 @@ function Pages(props) {
         <When condition={sections.overview}>
           <h3>Course Overview</h3>
           {
-            sections.overview && Object.keys(sections.overview).map(page =>
-              <TreeItem key={page} nodeId={page} label={page} onClick={() => curriculum.selectPage(sections.overview[page])}></TreeItem>,
+            sections.overview?.facilitator && Object.keys(sections.overview.facilitator).map(page =>
+              <TreeItem key={page} nodeId={page} label={page} onClick={() => curriculum.selectPage(sections.overview.facilitator[page])}></TreeItem>,
             )
           }
           <Divider />

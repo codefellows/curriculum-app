@@ -1,8 +1,9 @@
 {
   "overview": {
-    "Overview": "/README.md",
-    "Data Structures and Algorithms": "/facilitator/data-structures-and-algorithms.md",
+    "curriculum": "/curriculum/README.md",
     "facilitator": {
+      "Course Overview": "/README.md",
+      "Data Structures and Algorithms": "/facilitator/data-structures-and-algorithms.md",
       "Facilitator's Guide": "/facilitator/README.md"
     }
   },

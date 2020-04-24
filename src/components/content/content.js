@@ -13,7 +13,10 @@ import toc from './plugins/toc.js';
 
 // Context
 import { CurriculumContext } from '../../context/curriculum.js';
+
+// Custom Styles
 import './toc.scss';
+import './table.scss';
 
 function Content(props) {
 
