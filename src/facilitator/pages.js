@@ -1,4 +1,9 @@
-import React, {useContext} from 'react';
+import React from 'react';
+import {connect} from 'react-redux';
+
+// Store
+import {selectPage, openDemo} from '../store/curriculum.store';
+
 import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import Divider from '@material-ui/core/Divider';
@@ -9,8 +14,6 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import OverViewIcon from '@material-ui/icons/DoubleArrow';
 
 import {When} from '../components/if';
-
-import { CurriculumContext } from '../context/curriculum';
 
 const classes = {
   overview: {
@@ -25,18 +28,17 @@ const classes = {
   },
 };
 
-function Pages(props) {
+function Pages( {curriculum, selectPage, drawerWidth} ) {
 
-  const curriculum = useContext(CurriculumContext);
   const sections = curriculum.pages;
 
   const useStyles = makeStyles((theme) => ({
     drawer: {
-      width: props.drawerWidth,
+      width: drawerWidth,
       flexShrink: 0,
     },
     drawerPaper: {
-      width: props.drawerWidth,
+      width: drawerWidth,
     },
     title: {
       padding:'0 2rem',
@@ -73,7 +75,7 @@ function Pages(props) {
           <h3>Course Overview</h3>
           {
             sections.overview?.facilitator && Object.keys(sections.overview.facilitator).map(page =>
-              <TreeItem key={page} nodeId={page} label={page} onClick={() => curriculum.selectPage(sections.overview.facilitator[page])}></TreeItem>,
+              <TreeItem key={page} nodeId={page} label={page} onClick={() => selectPage(sections.overview.facilitator[page])}></TreeItem>,
             )
           }
           <Divider />
@@ -95,9 +97,7 @@ function Pages(props) {
 
 }
 
-function Module( {module}) {
-
-  const curriculum = useContext(CurriculumContext);
+function ModuleComponent( {module, selectPage}) {
 
   return (
     <TreeItem nodeId={module.name} label={module.name} style={classes.module}>
@@ -105,7 +105,7 @@ function Module( {module}) {
         icon={<OverViewIcon/>}
         nodeId={`${module.name}-overview`}
         label='Overview' style={classes.class}
-        onClick={() => curriculum.selectPage(module.overview)}>
+        onClick={() => selectPage(module.overview)}>
       </TreeItem>
       {
         module.classes.map( classItem => <ClassEntry key={Math.random()} classItem={classItem} />)
@@ -114,7 +114,7 @@ function Module( {module}) {
   );
 }
 
-function ClassEntry({classItem}) {
+function ClassEntryComponent({classItem}) {
 
   return (
     <TreeItem nodeId={classItem.name} label={`${classItem.class}-${classItem.name}`} style={classes.module}>
@@ -127,11 +127,26 @@ function ClassEntry({classItem}) {
   );
 }
 
-function ClassLink({page, link}) {
-  const curriculum = useContext(CurriculumContext);
+function ClassLinkComponent({page, link, openDemo, selectPage}) {
+  const open = () => {
+    if (page === 'code demos') {
+      openDemo(link);
+    }
+    else {
+      selectPage(link);
+    }
+  };
+
   return (
-    <TreeItem nodeId={page} label={page} onClick={() => curriculum.selectPage(link)} style={classes.class}></TreeItem>
+    <TreeItem nodeId={page} label={page} onClick={open} style={classes.class}></TreeItem>
   );
 }
 
-export default Pages;
+const mapStateToProps = ({ curriculum }) => ({ curriculum });
+const mapDispatchToProps = { selectPage, openDemo };
+
+const Module = connect(mapStateToProps, mapDispatchToProps)(ModuleComponent);
+const ClassLink = connect(mapStateToProps, mapDispatchToProps)(ClassLinkComponent);
+const ClassEntry = connect(mapStateToProps, mapDispatchToProps)(ClassEntryComponent);
+
+export default connect(mapStateToProps, mapDispatchToProps)(Pages);

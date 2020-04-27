@@ -1,12 +1,12 @@
-import React, { useEffect, useCallback } from 'react';
-import { connect } from 'react-redux';
+import React, {useEffect, useCallback} from 'react';
+import {connect} from 'react-redux';
 
 import { ThemeProvider } from '@material-ui/core/styles';
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { createMuiTheme } from '@material-ui/core/styles';
 
-import { getCourses, getVersions, getManifest, getMarkdown, getDemoFiles } from '../store/curriculum.store';
+import {getCourses, getVersions, getManifest, getMarkdown, getDemoFiles} from '../store/curriculum.store';
 
 import Header from './header.js';
 import Content from '../components/content/content.js';
@@ -33,7 +33,7 @@ const theme = createMuiTheme({
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
-    backgroundColor: '#FBFCFC',
+    backgroundColor:'#FBFCFC',
   },
   // necessary for content to be below app bar
   toolbar: theme.mixins.toolbar,
@@ -42,29 +42,29 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Page(props) {
+function Page( props ) {
 
-  const { curriculum, getCourses, getVersions, getManifest, getMarkdown, getDemoFiles } = props;
+  const { curriculum, getCourses, getVersions, getManifest, getMarkdown, getDemoFiles} = props;
 
   const classes = useStyles();
 
-  const run = useCallback((fn) => {
+  const run = useCallback( (fn) => {
     fn(curriculum);
-  }, [curriculum]);
+  },[curriculum]);
 
-  useEffect(() => {
+  useEffect( () => {
     run(getCourses);
   }, []);
 
-  useEffect(() => {
+  useEffect( () => {
     curriculum.repo && run(getVersions);
   }, [curriculum.repo]);
 
-  useEffect(() => {
+  useEffect( () => {
     curriculum.version && run(getManifest);
   }, [curriculum.version]);
 
-  useEffect(() => {
+  useEffect( () => {
     curriculum.file && run(getMarkdown);
   }, [curriculum.file]);
 

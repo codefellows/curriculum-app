@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
+import React, { useContext, useEffect } from 'react';
 
 import ReactMarkdown from 'react-markdown';
 import sectionize from 'remark-sectionize';
@@ -17,11 +16,16 @@ import toc from './plugins/toc.js';
 import {If,Then,Else} from '../if';
 import Demo from '../demo/demo.js';
 
+// Context
+import { CurriculumContext } from '../../context/curriculum.js';
+
 // Custom Styles
 import './toc.scss';
 import './table.scss';
 
-function Content( {curriculum} ) {
+function Content(props) {
+
+  const curriculum = useContext(CurriculumContext);
 
   const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => {
@@ -65,6 +69,4 @@ function Content( {curriculum} ) {
   );
 }
 
-const mapStateToProps = ({curriculum}) => ({curriculum});
-
-export default connect(mapStateToProps)(Content);
+export default Content;

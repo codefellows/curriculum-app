@@ -7,7 +7,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import { createMuiTheme } from '@material-ui/core/styles';
 
 import Header from './header.js';
-import Content from '../components/content/content.js';
+import Content from '../components/content-context/content.js';
 
 const theme = createMuiTheme({
   palette: {

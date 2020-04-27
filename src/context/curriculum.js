@@ -15,7 +15,9 @@ function Curriculum(props) {
   const [repositories, setRepositories] = useState([]);
   const [versions, setVersions] = useState([]);
   const [pages, setPages] = useState([]);
-
+  const [demoFiles, setDemoFiles] = useState({});
+  const [demoMode, setDemoMode] = useState(false);
+  const [demoFolder, setDemoFolder] = useState('');
   const [classInfo, setClass] = useState({});
   const [title, setTitle] = useState('');
   const [repo, setRepo] = useState('');
@@ -45,7 +47,29 @@ function Curriculum(props) {
 
   const selectPage = async (file) => {
     setFile(file);
+    setDemoMode(false);
   };
+
+  const openDemo = async (folder) => {
+    setDemoMode(true);
+    setDemoFolder(folder);
+  };
+
+  // Used internally to get page Markdown ... should run any time the file or version changes
+  const getDemoFiles = useCallback(async () => {
+    try {
+      if (demoMode && repo && version && demoFolder) {
+        const url = `${proxy}/tree`;
+        const path = demoFolder;
+        const selections = { repo, version, path };
+        const response = await superagent.post(url).send(selections);
+        const tree = JSON.parse(response.text);
+        setDemoFiles(tree);
+      }
+    } catch (e) {
+      console.warn('ERROR: getMarkdown()', e.message);
+    }
+  }, [demoMode, repo, version, demoFolder]);
 
   // Used internally to get page Markdown ... should run any time the file or version changes
   const getMarkdown = useCallback( async () => {
@@ -65,7 +89,7 @@ function Curriculum(props) {
 
   // Used internally to read the course manifest and load the page navigator
   const getPages = useCallback( async () => {
-    // repo && version && setPages(sampleManifest); return;
+    repo && version && setPages(sampleManifest); return;
     try {
       if (repo && version) {
         const url = `${proxy}/manifest`;
@@ -116,6 +140,10 @@ function Curriculum(props) {
     file && getMarkdown();
   }, [getMarkdown,file]);
 
+  useEffect(() => {
+    getDemoFiles();
+  }, [getDemoFiles]);
+
   // This should only run once, and trigger getMarkdown by changing the selctions
   // based on the query string
   useEffect(() => {
@@ -143,6 +171,9 @@ function Curriculum(props) {
     selectCourse,
     selectVersion,
     selectPage,
+    openDemo,
+    demoMode,
+    demoFiles,
   };
 
   return (

@@ -7,14 +7,13 @@ exports.handler = async (event, context, callback) => {
   const request = JSON.parse(event.body);
 
   const repo = request.repo;
-  const version = request.version;
+  const requestedVersion = request.version;
   const path = request.path;
 
+  const version = await github.getVersion(repo, requestedVersion);
   const files = await github.getTree(repo, version, path);
 
   const responseBody = { path, files };
-
-  console.log(responseBody);
 
   return {
     statusCode: 200,
