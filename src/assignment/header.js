@@ -1,4 +1,5 @@
-import React, {useContext} from 'react';
+import React from 'react';
+import {connect} from 'react-redux';
 
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -6,11 +7,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import AppBar from '@material-ui/core/AppBar';
 
-import {CurriculumContext} from '../context/curriculum';
-
-function Header( {drawerWidth}) {
-
-  const curriculum = useContext(CurriculumContext);
+function Header( {curriculum, drawerWidth}) {
 
   const useStyles = makeStyles((theme) => ({
     title: {
@@ -32,4 +29,5 @@ function Header( {drawerWidth}) {
 
 }
 
-export default Header;
+const mapStateToProps = ({ curriculum }) => ({ curriculum });
+export default connect(mapStateToProps)(Header);

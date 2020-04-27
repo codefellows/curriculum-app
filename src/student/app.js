@@ -1,4 +1,5 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect, useCallback } from 'react';
+import {connect} from 'react-redux';
 
 import { useParams } from 'react-router-dom';
 
@@ -7,10 +8,11 @@ import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { createMuiTheme } from '@material-ui/core/styles';
 
-import {CurriculumContext} from '../context/curriculum';
 import Header from './header.js';
-import Content from '../components/content-context/content.js';
+import Content from '../components/content/content.js';
 import Pages from './pages.js';
+
+import { selectCourse, selectVersion, selectPage, getDemoFiles, getMarkdown, getManifest } from '../store/curriculum.store.js';
 
 const drawerWidth = 320;
 
@@ -41,22 +43,39 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function App() {
+function Page(props) {
+
+  const {curriculum, selectCourse, selectPage, selectVersion, getManifest, getMarkdown, getDemoFiles} = props;
 
   const classes = useStyles();
-  const curriculum = useContext(CurriculumContext);
   const { org, repo, module, classNumber } = useParams();
+
+  const run = useCallback((fn) => {
+    fn(curriculum);
+  }, [curriculum]);
 
   const setCourse = () => {
     if ( org && repo ) {
       const course = `${org}/${repo}`;
-      curriculum.selectCourse(course);
-      curriculum.selectVersion('master');
-      curriculum.selectPage('/curriculum/README.md');
+      selectCourse(course);
+      selectVersion('master');
+      selectPage('/curriculum/README.md');
     }
   };
 
   useEffect( setCourse, [] );
+
+  useEffect(() => {
+    curriculum.version && run(getManifest);
+  }, [curriculum.version]);
+
+  useEffect(() => {
+    curriculum.file && run(getMarkdown);
+  }, [curriculum.file]);
+
+  useEffect(() => {
+    run(getDemoFiles);
+  }, [curriculum.demoFolder]);
 
   return (
     <ThemeProvider theme={theme}>
@@ -72,4 +91,8 @@ export default function App() {
     </ThemeProvider>
   );
 }
+
+const mapStateToProps = ({ curriculum }) => ({ curriculum });
+const mapDispatchToProps = { selectCourse, selectVersion, selectPage, getDemoFiles, getMarkdown, getManifest };
+export default connect(mapStateToProps, mapDispatchToProps)(Page);
 

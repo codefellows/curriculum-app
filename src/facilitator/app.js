@@ -1,12 +1,13 @@
 import React, { useEffect, useCallback } from 'react';
 import { connect } from 'react-redux';
 
+import queryString from 'query-string';
 import { ThemeProvider } from '@material-ui/core/styles';
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { createMuiTheme } from '@material-ui/core/styles';
 
-import { getCourses, getVersions, getManifest, getMarkdown, getDemoFiles } from '../store/curriculum.store';
+import { getCourses, getVersions, getManifest, getMarkdown, getDemoFiles, setVersion, setFile, setRepo } from '../store/curriculum.store';
 
 import Header from './header.js';
 import Content from '../components/content/content.js';
@@ -44,7 +45,17 @@ const useStyles = makeStyles((theme) => ({
 
 function Page(props) {
 
-  const { curriculum, getCourses, getVersions, getManifest, getMarkdown, getDemoFiles } = props;
+  const {
+    curriculum,
+    getCourses,
+    getVersions,
+    getManifest,
+    getMarkdown,
+    getDemoFiles,
+    setVersion,
+    setRepo,
+    setFile,
+  } = props;
 
   const classes = useStyles();
 
@@ -53,6 +64,13 @@ function Page(props) {
   }, [curriculum]);
 
   useEffect(() => {
+    document.title = 'Curriculum Browser';
+    let qs = queryString.parse(window.location.search);
+    if (qs.repo && qs.file && qs.version) {
+      setVersion(qs.version);
+      setRepo(qs.repo.replace(/^\//, ''));
+      setFile(qs.file.replace(/^\//, ''));
+    }
     run(getCourses);
   }, []);
 
@@ -66,6 +84,7 @@ function Page(props) {
 
   useEffect(() => {
     curriculum.file && run(getMarkdown);
+    console.log('got markdown for', curriculum.file);
   }, [curriculum.file]);
 
   useEffect(() => {
@@ -88,6 +107,6 @@ function Page(props) {
 }
 
 const mapStateToProps = ({ curriculum }) => ({ curriculum });
-const mapDispatchToProps = { getCourses, getVersions, getManifest, getMarkdown, getDemoFiles };
+const mapDispatchToProps = { getCourses, getVersions, getManifest, getMarkdown, getDemoFiles, setVersion, setFile, setRepo };
 export default connect(mapStateToProps, mapDispatchToProps)(Page);
 

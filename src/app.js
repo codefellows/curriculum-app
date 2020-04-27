@@ -11,7 +11,7 @@ import {
 import 'typeface-roboto';
 
 import Facilitator from './facilitator/app.js';
-// import Student from './student/app.js';
+import Student from './student/app.js';
 // import Assignment from './assignment/app.js';
 
 export default function App() {
@@ -19,8 +19,8 @@ export default function App() {
     <Provider store={store}>
       <Router>
         <Route path="/facilitator"><Facilitator /></Route>
-        {/* <Route path="/assignment"><Assignment /></Route>
-        <Route path="/student/:org/:repo"><Student /></Route> */}
+        {/* <Route path="/assignment"><Assignment /></Route> */}
+        <Route path="/student/:org/:repo"><Student /></Route>
       </Router>
     </Provider>
   );

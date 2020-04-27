@@ -1,4 +1,5 @@
-import React, {useContext} from 'react';
+import React from 'react';
+import { connect } from 'react-redux';
 
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -12,11 +13,10 @@ import HowToRegIcon from '@material-ui/icons/HowToReg';
 import ViewListIcon from '@material-ui/icons/ViewList';
 
 import {When} from '../components/if';
-import {CurriculumContext} from '../context/curriculum';
 
-function Header( {drawerWidth}) {
+import {selectPage} from '../store/curriculum.store.js';
 
-  const curriculum = useContext(CurriculumContext);
+function Header( {drawerWidth, curriculum, selectPage}) {
 
   const useStyles = makeStyles((theme) => ({
     appBar: {
@@ -44,7 +44,7 @@ function Header( {drawerWidth}) {
   const classes = useStyles();
 
   const changePage = (page) => {
-    curriculum.selectPage(page);
+    selectPage(page);
   };
 
   return (
@@ -104,4 +104,7 @@ function Header( {drawerWidth}) {
 
 }
 
-export default Header;
+const mapStateToProps = ({ curriculum }) => ({ curriculum });
+const mapDispatchToProps = { selectPage };
+export default connect(mapStateToProps, mapDispatchToProps)(Header);
+

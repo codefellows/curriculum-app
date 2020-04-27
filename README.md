@@ -54,3 +54,4 @@ TODO
 5. Consider giving the facilitator the same buttons as the student
 6. Any way to get the back button to work? (Time travel?)
 7. Can all that theme shit go to the top level?
+8. Get the student wired up to Redux, too

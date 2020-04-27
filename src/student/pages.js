@@ -1,4 +1,6 @@
-import React, {useContext} from 'react';
+import React from 'react';
+import { connect } from 'react-redux';
+
 import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import Divider from '@material-ui/core/Divider';
@@ -9,7 +11,8 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 
 import {When} from '../components/if';
 
-import { CurriculumContext } from '../context/curriculum';
+// Store
+import { selectPage, setClass } from '../store/curriculum.store';
 
 const classes = {
   overview: {
@@ -24,18 +27,17 @@ const classes = {
   },
 };
 
-function Pages(props) {
+function Pages( {curriculum, drawerWidth, selectPage} ) {
 
-  const curriculum = useContext(CurriculumContext);
   const sections = curriculum.pages;
 
   const useStyles = makeStyles((theme) => ({
     drawer: {
-      width: props.drawerWidth,
+      width: drawerWidth,
       flexShrink: 0,
     },
     drawerPaper: {
-      width: props.drawerWidth,
+      width: drawerWidth,
     },
     title: {
       fontSize: '1rem',
@@ -80,7 +82,7 @@ function Pages(props) {
                   key={page}
                   nodeId={page}
                   label={page}
-                  onClick={() => curriculum.selectPage(sections.overview[page])}
+                  onClick={() => selectPage(sections.overview[page])}
                 ></TreeItem>,
             )
           }
@@ -103,9 +105,7 @@ function Pages(props) {
 
 }
 
-function Module( {module}) {
-
-  const curriculum = useContext(CurriculumContext);
+function ModuleComponent( {module, selectPage}) {
 
   return (
     <TreeItem nodeId={module.name} label={module.name} style={classes.module}>
@@ -113,13 +113,13 @@ function Module( {module}) {
         style={classes.overview}
         nodeId={`${module.name}-overview`}
         label='Module at a Glance'
-        onClick={() => curriculum.selectPage(module.overview)}>
+        onClick={() => selectPage(module.overview)}>
       </TreeItem>
       <TreeItem
         style={classes.overview}
         nodeId={`${module.name}-project`}
         label='Project Specs'
-        onClick={() => curriculum.selectPage(module.project)}>
+        onClick={() => selectPage(module.project)}>
       </TreeItem>
       {
         module.classes.map( classItem => <ClassEntry key={Math.random()} classItem={classItem} />)
@@ -128,13 +128,11 @@ function Module( {module}) {
   );
 }
 
-function ClassEntry({classItem}) {
-
-  const curriculum = useContext(CurriculumContext);
+function ClassEntryComponent({classItem, setClass, selectPage}) {
 
   const openClass = () => {
-    curriculum.setClass(classItem);
-    curriculum.selectPage(classItem.overview);
+    setClass(classItem);
+    selectPage(classItem.overview);
   };
 
   return (
@@ -148,4 +146,10 @@ function ClassEntry({classItem}) {
   );
 }
 
-export default Pages;
+const mapStateToProps = ({ curriculum }) => ({ curriculum });
+const mapDispatchToProps = { selectPage, setClass };
+
+const Module = connect(mapStateToProps, mapDispatchToProps)(ModuleComponent);
+const ClassEntry = connect(mapStateToProps, mapDispatchToProps)(ClassEntryComponent);
+
+export default connect(mapStateToProps, mapDispatchToProps)(Pages);

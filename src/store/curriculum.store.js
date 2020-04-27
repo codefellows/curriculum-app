@@ -129,6 +129,7 @@ const curriculum = createSlice({
       state.file = '';
       state.markdown = '';
       state.pages = [];
+      console.log('setting', repo);
       state.repo = repo;
     },
     selectVersion(state,action) {
