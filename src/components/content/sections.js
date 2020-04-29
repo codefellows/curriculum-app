@@ -1,3 +1,5 @@
 import React from 'react';
 
-export default ({children}) => <section>{children}</section>;
+export default function Section ({children}) {
+  return <section>{children}</section>;
+}

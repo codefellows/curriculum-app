@@ -1,4 +1,5 @@
-import React, {useState, useContext} from 'react';
+import React, {useState} from 'react';
+import { connect } from 'react-redux';
 
 import { makeStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -10,11 +11,10 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import AppBar from '@material-ui/core/AppBar';
 
-import {CurriculumContext} from '../context/curriculum';
+import {selectCourse, selectVersion} from '../../store/curriculum.store.js';
 
-function Header( {drawerWidth}) {
+function Header( {drawerWidth, curriculum, selectCourse, selectVersion }) {
 
-  const curriculum = useContext(CurriculumContext);
   const [course,setCourse] = useState('');
   const [version,setVersion] = useState('');
 
@@ -45,12 +45,12 @@ function Header( {drawerWidth}) {
 
   const changeCourse = (e) => {
     setCourse(e.target.value);
-    curriculum.selectCourse(e.target.value);
+    selectCourse(e.target.value);
   };
 
   const changeVersion = (e) => {
     setVersion(e.target.value);
-    curriculum.selectVersion(e.target.value);
+    selectVersion(e.target.value);
   };
 
   return (
@@ -94,4 +94,7 @@ function Header( {drawerWidth}) {
 
 }
 
-export default Header;
+const mapStateToProps = ({ curriculum }) => ({ curriculum });
+const mapDispatchToProps = { selectCourse, selectVersion };
+export default connect(mapStateToProps, mapDispatchToProps)(Header);
+

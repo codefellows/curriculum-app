@@ -1,4 +1,5 @@
-import React, {useState, useContext} from 'react';
+import React from 'react';
+import { connect } from 'react-redux';
 
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -11,12 +12,11 @@ import TrackChangesIcon from '@material-ui/icons/TrackChanges';
 import HowToRegIcon from '@material-ui/icons/HowToReg';
 import ViewListIcon from '@material-ui/icons/ViewList';
 
-import {When} from '../components/if';
-import {CurriculumContext} from '../context/curriculum';
+import {When} from '../../components/if';
 
-function Header( {drawerWidth}) {
+import {selectPage} from '../../store/curriculum.store.js';
 
-  const curriculum = useContext(CurriculumContext);
+function Header( {drawerWidth, curriculum, selectPage}) {
 
   const useStyles = makeStyles((theme) => ({
     appBar: {
@@ -43,15 +43,8 @@ function Header( {drawerWidth}) {
 
   const classes = useStyles();
 
-  // Probably just need to change the page below
-  const changeCourse = (e) => {
-    // setCourse(e.target.value);
-    // curriculum.selectCourse(e.target.value);
-  };
-
-  const changeVersion = (e) => {
-    // setVersion(e.target.value);
-    // curriculum.selectVersion(e.target.value);
+  const changePage = (page) => {
+    selectPage(page);
   };
 
   return (
@@ -63,7 +56,7 @@ function Header( {drawerWidth}) {
             color="default"
             className={classes.button}
             startIcon={<TrackChangesIcon />}
-            onClick={ () => curriculum.selectPage(curriculum.classInfo.overview) }
+            onClick={ () => changePage(curriculum.classInfo.overview) }
           >
           Overview
           </Button>
@@ -75,7 +68,7 @@ function Header( {drawerWidth}) {
             color="default"
             className={classes.button}
             startIcon={<MenuBookIcon />}
-            onClick={ () => curriculum.selectPage(curriculum.classInfo.assignments.reading) }
+            onClick={ () => changePage(curriculum.classInfo.assignments.reading) }
           >
           Reading
           </Button>
@@ -86,7 +79,7 @@ function Header( {drawerWidth}) {
             color="default"
             className={classes.button}
             startIcon={<HowToRegIcon />}
-            onClick={ () => curriculum.selectPage(curriculum.classInfo.assignments.lab) }
+            onClick={ () => changePage(curriculum.classInfo.assignments.lab) }
           >
           Lab
           </Button>
@@ -97,7 +90,7 @@ function Header( {drawerWidth}) {
             color="default"
             className={classes.button}
             startIcon={<ViewListIcon />}
-            onClick={ () => curriculum.selectPage(curriculum.classInfo.resources) }
+            onClick={ () => changePage(curriculum.classInfo.resources) }
           >
           Resources
           </Button>
@@ -111,4 +104,7 @@ function Header( {drawerWidth}) {
 
 }
 
-export default Header;
+const mapStateToProps = ({ curriculum }) => ({ curriculum });
+const mapDispatchToProps = { selectPage };
+export default connect(mapStateToProps, mapDispatchToProps)(Header);
+

@@ -25,13 +25,13 @@
           "facilitator": {
             "guide": "/curriculum/class-01/facilitator/README.md",
             "demo prep": "/curriculum/class-01/facilitator/DEMO.md",
-            "code demos": "",
+            "code demos": "/curriculum/class-01/demo",
             "lecture example": "/curriculum/class-01/facilitator/LECTURE-EXAMPLE.md"
           }
         },
         {
           "class": "02",
-          "name": "Classes, Inheritance, Functional Programming",
+          "name": "Classes, Inheritance",
           "overview": "/curriculum/class-02/README.md",
           "assignments": {
             "reading": "/curriculum/class-02/DISCUSSION.md",
@@ -46,7 +46,7 @@
         },
         {
           "class": "03",
-          "name": "Data Modeling / NoSQL",
+          "name": "Data Modeling (NoSQL)",
           "overview": "/curriculum/class-03/README.md",
           "assignments": {
             "reading": "/curriculum/class-03/DISCUSSION.md",
@@ -61,7 +61,7 @@
         },
         {
           "class": "04",
-          "name": "Advanced Mongo/Mongoose",
+          "name": "Advanced Data Modeling",
           "overview": "/curriculum/class-04/README.md",
           "assignments": {
             "reading": "/curriculum/class-04/DISCUSSION.md",
@@ -486,7 +486,7 @@
     },
     {
       "module": "08",
-      "name": "Module 8: React Native & Other Frameworks",
+      "name": "Module 8: Other UI Frameworks",
       "overview": "/facilitator/module-8.md",
       "project": "/curriculum/module-08/project/README.md",
       "classes": [
@@ -522,7 +522,7 @@
         },
         {
           "class": "43",
-          "name": "Gatsby, next.js, and other JS Frameworks",
+          "name": "Gatsby, Next, Vue, Angular",
           "overview": "/curriculum/class-443README.md",
           "assignments": {
             "reading": "/curriculum/class-43/DISCUSSION.md",

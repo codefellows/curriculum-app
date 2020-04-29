@@ -43,4 +43,12 @@ Canvas Assignment
 Student / Class Page (links to the class repo)
 
 Home: <http://localhost:3001/student/codefellows/code-401-javascript-guide>
-Direct: http://localhost:3001/student/codefellows/code-401-javascript-guide/module-1/class-01
+Direct: <http://localhost:3001/student/codefellows/code-401-javascript-guide/module-1/class-01>
+
+TODO
+
+- Make the facilitator, student share page.js from content
+- Make the assignment also share that style set
+- Consider giving the facilitator the same buttons as the student
+- Any way to get the back button to work? (Time travel?)
+- Can all that theme shit go to the top level?

@@ -1,26 +1,27 @@
-import React, { useContext, useEffect, useCallback } from 'react';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
 
 import ReactMarkdown from 'react-markdown';
 import sectionize from 'remark-sectionize';
 
-// Rendering overrides
+// Markdown rendering overrides
 import CodeBlock from './code.js';
+import Link from './links.js';
 import Section from './sections.js';
 import Heading from './headings.js';
 
-// Custom Remark Plugin
+// Custom Remark Plugin to handle the Table of Contents
 import toc from './plugins/toc.js';
 
-// Context
-import { CurriculumContext } from '../../context/curriculum.js';
+// Custom Components
+import {If,Then,Else} from '../if';
+import Demo from '../demo/demo.js';
 
 // Custom Styles
 import './toc.scss';
 import './table.scss';
 
-function Content(props) {
-
-  const curriculum = useContext(CurriculumContext);
+function Content( {curriculum} ) {
 
   const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => {
@@ -28,42 +29,11 @@ function Content(props) {
       if (entry.intersectionRatio > 0) {
         let items = document.querySelectorAll('.content a');
         items.forEach( item => item && item.classList.remove('active') );
-        let a = document.querySelector(`a[href="#${id}"]`);
+        let a = document.querySelector(`a[href$="${id}"]`);
         a && a.classList.add('active');
       }
     });
   });
-
-  // By wrapping in a callback, we can memoize this for the effect
-  const interceptHrefClicks = useCallback( (e) => {
-    if (e.target.nodeName === 'A') {
-
-      const href = e.target.getAttribute('href');
-
-      // Absolute? Open in new tab
-      if (href.startsWith('http')) {
-        e.preventDefault();
-        window.open(href, '_blank');
-      }
-      // Hash Link
-      else if (href.startsWith('#')) {}
-      // Relative? Change the state with the new filename
-      else {
-        e.preventDefault();
-        const url = new URL(href, `http://x${curriculum.file}`);
-        console.log(curriculum.file);
-        console.log(href);
-        console.log(url);
-        curriculum.selectPage(url.pathname);
-      }
-    }
-  });
-
-  useEffect( () => {
-    const content = document.getElementById('courseContent');
-    content.addEventListener('click', interceptHrefClicks);
-    return () => content.removeEventListener('click', interceptHrefClicks);
-  }, [interceptHrefClicks]);
 
   useEffect( () => {
     document.querySelectorAll('section h2[id]').forEach((section) => { observer.observe(section); });
@@ -72,14 +42,29 @@ function Content(props) {
   }, [curriculum.markdown, observer]);
 
   return (
-    <article id='courseContent' className='content'>
-      <ReactMarkdown
-        source={curriculum.markdown}
-        renderers={{ code: CodeBlock, section: Section, heading: Heading }}
-        plugins={[toc,sectionize]}
-      />
-    </article>
+    <If condition={curriculum.demoMode}>
+      <Then>
+        <Demo tree={curriculum.demoFiles}/>
+      </Then>
+      <Else>
+        <article id='courseContent' className='content'>
+          <ReactMarkdown
+            source={curriculum.markdown}
+            renderers={{
+              link: Link,
+              code: CodeBlock,
+              heading: Heading,
+              section: Section,
+            }}
+            plugins={[toc, sectionize]}
+          />
+        </article>
+      </Else>
+    </If>
+
   );
 }
 
-export default Content;
+const mapStateToProps = ({curriculum}) => ({curriculum});
+
+export default connect(mapStateToProps)(Content);

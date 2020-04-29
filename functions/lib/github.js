@@ -22,18 +22,18 @@ github.getReleases = async (repo) => {
     const [org, repository] = repo.split('/');
 
     const query = `
-    {
-      repository(name: "${repository}", owner: "${org}") {
-        releases(last: 10, orderBy: {field: CREATED_AT, direction: DESC}) {
-          edges {
-            node {
-              tagName
+      {
+        repository(name: "${repository}", owner: "${org}") {
+          releases(last: 10, orderBy: {field: CREATED_AT, direction: DESC}) {
+            edges {
+              node {
+                tagName
+              }
             }
           }
         }
       }
-    }
-  `;
+    `;
 
     const response = await octokitGraphql(query);
 
@@ -42,14 +42,14 @@ github.getReleases = async (repo) => {
     return releases;
 
   } catch(e) {
-    console.error(e);
-    return '';
+    console.error(`ERROR getReleases(${repo})`, e);
+    return [];
   }
 
 };
 
 github.getVersion = async (repo, requestedVersion) => {
-  const releases = github.getReleases(repo);
+  const releases = await github.getReleases(repo);
   return semver.maxSatisfying(releases, requestedVersion) || releases[releases.length - 1];
 };
 
@@ -97,7 +97,7 @@ github.getRepositories = async () => {
     return repos;
 
   } catch(e) {
-    console.error(e);
+    console.error('ERROR getRepositories()', e);
     return [];
   }
 
@@ -127,8 +127,8 @@ github.getContent = async (repo, file, version) => {
     return content;
 
   } catch (e) {
-    console.error(e);
-    return '';
+    console.error(`ERROR getContent(${repo}, ${file}, ${version})`, e);
+    return {};
   }
 
 };
@@ -177,19 +177,44 @@ github.getTree = async (repo, version, path) => {
       recursive: true,
     });
 
-    const files = list.data.tree.reduce((acc, file) => {
+    const requests = [];
+
+    // build a list of files, ordered by where they are in the directories
+    const fileList = list.data.tree.reduce((acc, file) => {
+      path = path.replace(/^\//, '');
+      // Filter out those not in our requested path
+      // Add to the list, and also fire a request for content, in parallel
       if (file.path.startsWith(path)) {
         file = file.path.replace(path, '').replace(/^\//, '');
-        file && acc.push(file);
+        if(file) {
+          acc.push(file);
+          requests.push(github.getContent(repo, `${path}/${file}`, version));
+        }
       }
       return acc;
     }, []);
 
-    return files;
+    // All of the content requests in an array
+    const contents = await Promise.all(requests);
+
+    // Merge the file names and content, in a hierarchy/tree
+    const tree = fileList.reduce(function (hier, file, idx) {
+      let x = hier;
+      file.split('/').forEach(function (item) {
+        if (!x[item]) {
+          x[item] = {};
+        }
+        x = x[item];
+      });
+      if (contents[idx]) { x.content = contents[idx]; }
+      return hier;
+    }, {});
+
+    return tree;
 
   } catch (e) {
-    console.error(e);
-    return '';
+    console.error(`ERROR getTree(${repo}, ${version}, ${path})`, e);
+    return [];
   }
 
 };

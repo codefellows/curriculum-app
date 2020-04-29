@@ -35,6 +35,12 @@ const styles = {
     wordBreak: 'keep-all',
     fontSize: '.8rem',
   },
+  demo: {
+    whiteSpace: 'pre-wrap',
+    wordBreak: 'keep-all',
+    fontSize: '1rem',
+    margin: 0,
+  },
 };
 
 class CodeBlock extends PureComponent {
@@ -48,9 +54,11 @@ class CodeBlock extends PureComponent {
   };
 
   render() {
-    const { language, value } = this.props;
+    let { theme, customStyle, language, value } = this.props;
+    theme = theme ? theme : 'okaidia';
+    customStyle = customStyle ? styles[customStyle] : styles.code;
     return (
-      <SyntaxHighlighter language={language} customStyle={styles.code} style={themes.okaidia}>
+      <SyntaxHighlighter language={language} customStyle={customStyle} style={themes[theme]}>
         {value}
       </SyntaxHighlighter>
     );
