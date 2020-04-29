@@ -1,184 +1,49 @@
-import React, {useState, useEffect, useCallback} from 'react';
-import superagent from 'superagent';
-import queryString from 'query-string';
-import getTitle from 'get-title-markdown';
+import React from 'react';
 
-import sampleManifest from './manifest.json';
+import { ThemeProvider } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
+import { createMuiTheme } from '@material-ui/core/styles';
+import CssBaseline from '@material-ui/core/CssBaseline';
 
-const proxy = process.env.REACT_APP_GITHUB_PROXY;
+import 'typeface-roboto';
 
 export const CurriculumContext = React.createContext();
 
 function Curriculum(props) {
 
-  const [markdown, setMarkdown] = useState('');
-  const [repositories, setRepositories] = useState([]);
-  const [versions, setVersions] = useState([]);
-  const [pages, setPages] = useState([]);
-  const [demoFiles, setDemoFiles] = useState({});
-  const [demoMode, setDemoMode] = useState(false);
-  const [demoFolder, setDemoFolder] = useState('');
-  const [classInfo, setClass] = useState({});
-  const [title, setTitle] = useState('');
-  const [repo, setRepo] = useState('');
-  const [version, setVersion] = useState('');
-  const [file, setFile] = useState('');
+  const theme = createMuiTheme({
+    palette: {
+      primary: {
+        main: '#e0e0e0',
+      },
+      secondary: {
+        light: '#0066ff',
+        main: '#0044ff',
+        contrastText: '#ffcc00',
+      },
+      contrastThreshold: 3,
+      tonalOffset: 0.2,
+    },
+  });
 
-
-  // Exported event handlers.  As the user changes their selections from the UI,
-  // these functions use their setState methods to change `selections`
-  // Below, there are useEffect hooks watching for selections to change and re-pull data
-  const selectCourse = async (repo) => {
-    document.title = repo.split('/').pop();
-    setRepo(repo);
-    setVersion('');
-    setFile('');
-    setMarkdown('');
-    setPages([]);
-  };
-
-  const selectVersion = async (version) => {
-    document.title = `${repo.split('/').pop()} @ ${version}`;
-    setVersion(version);
-    setFile('');
-    setMarkdown('');
-    setPages([]);
-  };
-
-  const selectPage = async (file) => {
-    setFile(file);
-    setDemoMode(false);
-  };
-
-  const openDemo = async (folder) => {
-    setDemoMode(true);
-    setDemoFolder(folder);
-  };
-
-  // Used internally to get page Markdown ... should run any time the file or version changes
-  const getDemoFiles = useCallback(async () => {
-    try {
-      if (demoMode && repo && version && demoFolder) {
-        const url = `${proxy}/tree`;
-        const path = demoFolder;
-        const selections = { repo, version, path };
-        const response = await superagent.post(url).send(selections);
-        const tree = JSON.parse(response.text);
-        setDemoFiles(tree);
-      }
-    } catch (e) {
-      console.warn('ERROR: getMarkdown()', e.message);
-    }
-  }, [demoMode, repo, version, demoFolder]);
-
-  // Used internally to get page Markdown ... should run any time the file or version changes
-  const getMarkdown = useCallback( async () => {
-    try {
-      if ( repo && version && file ) {
-        const url = `${proxy}/content`;
-        const selections = {repo,version,file};
-        const response = await superagent.post(url).send(selections);
-        const rawMarkdown = response.text;
-        setTitle( getTitle(rawMarkdown) );
-        setMarkdown(rawMarkdown);
-      }
-    } catch(e) {
-      console.warn('ERROR: getMarkdown()', e.message);
-    }
-  },[repo,version,file]);
-
-  // Used internally to read the course manifest and load the page navigator
-  const getPages = useCallback( async () => {
-    repo && version && setPages(sampleManifest); return;
-    try {
-      if (repo && version) {
-        const url = `${proxy}/manifest`;
-        const selections = {repo,version};
-        let response = await superagent.post(url).send(selections);
-        let manifest = JSON.parse(response.text);
-        setPages(manifest);
-      }
-    } catch(e) {
-      console.warn('ERROR getPages()', e.message);
-    }
-  }, [repo,version]);
-
-  // Used internally to load versions after a course has been selected
-  const getVersions = useCallback( async () => {
-    try {
-      const url = `${proxy}/releases`;
-      const selections = {repo};
-      let response = await superagent.post(url).send(selections);
-      let availableVersions = JSON.parse(response.text);
-      setVersions(availableVersions);
-    } catch(e) {
-      console.warn('ERROR getVersions()', e.message);
-    }
-  }, [repo]);
-
-  // Used internally to load the initial set of courses
-  const getCourses = async () => {
-    try {
-      const url = `${proxy}/repos`;
-      let response = await superagent.post(url);
-      let courseRepos = JSON.parse(response.text);
-      setRepositories(courseRepos);
-    } catch(e) {
-      console.warn('ERROR getCourses()', e.message);
-    }
-  };
-
-  useEffect( () => {
-    repo && getVersions();
-  }, [getVersions,repo]);
-
-  useEffect( () => {
-    version && getPages();
-  }, [getPages,version]);
-
-  useEffect( () => {
-    file && getMarkdown();
-  }, [getMarkdown,file]);
-
-  useEffect(() => {
-    getDemoFiles();
-  }, [getDemoFiles]);
-
-  // This should only run once, and trigger getMarkdown by changing the selctions
-  // based on the query string
-  useEffect(() => {
-    document.title = 'Curriculum Browser';
-    let qs = queryString.parse(window.location.search);
-    if ( qs.repo && qs.file && qs.version ) {
-      setVersion(qs.version);
-      setRepo(qs.repo.replace(/^\//, ''));
-      setFile(qs.file.replace(/^\//, ''));
-    }
-    getCourses();
-  }, []);
-
-  const exports = {
-    markdown,
-    repositories,
-    versions,
-    pages,
-    file,
-    title,
-    repo,
-    classInfo,
-    setClass,
-    getCourses,
-    selectCourse,
-    selectVersion,
-    selectPage,
-    openDemo,
-    demoMode,
-    demoFiles,
-  };
+  const useStyles = makeStyles((theme) => ({
+    root: {
+      display: 'flex',
+      backgroundColor: '#FBFCFC',
+    },
+    // necessary for content to be below app bar
+    toolbar: theme.mixins.toolbar,
+    content: {
+      backgroundColor: '#FBFCFC',
+    },
+  }));
 
   return (
-    <CurriculumContext.Provider value={exports}>
-      {props.children}
+    <CurriculumContext.Provider value={{useStyles}}>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        {props.children}
+      </ThemeProvider>
     </CurriculumContext.Provider>
   );
 }

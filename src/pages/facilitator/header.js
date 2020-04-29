@@ -11,7 +11,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import AppBar from '@material-ui/core/AppBar';
 
-import {selectCourse, selectVersion} from '../store/curriculum.store.js';
+import {selectCourse, selectVersion} from '../../store/curriculum.store.js';
 
 function Header( {drawerWidth, curriculum, selectCourse, selectVersion }) {
 

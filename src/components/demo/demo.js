@@ -28,7 +28,6 @@ function Demo( {tree} ) {
   };
 
   const showCode = (file, item) => {
-    console.log(file, item);
     if ( item.content ) {
       let ext = file.split('.').pop();
       setLanguage(languages[ext]);

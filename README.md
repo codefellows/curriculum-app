@@ -47,11 +47,8 @@ Direct: <http://localhost:3001/student/codefellows/code-401-javascript-guide/mod
 
 TODO
 
-1. Make the facilitator, student share page.js from content
-2. Make the assignment also share that style set
-3. Get the query string and path thing working again so we can auto-populate
-4. Make sure the sidebar menus are right
-5. Consider giving the facilitator the same buttons as the student
-6. Any way to get the back button to work? (Time travel?)
-7. Can all that theme shit go to the top level?
-8. Get the student wired up to Redux, too
+- Make the facilitator, student share page.js from content
+- Make the assignment also share that style set
+- Consider giving the facilitator the same buttons as the student
+- Any way to get the back button to work? (Time travel?)
+- Can all that theme shit go to the top level?

@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 
 // Store
-import {selectPage, openDemo} from '../store/curriculum.store';
+import {selectPage, openDemo} from '../../store/curriculum.store';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -13,7 +13,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import OverViewIcon from '@material-ui/icons/DoubleArrow';
 
-import {When} from '../components/if';
+import {When} from '../../components/if';
 
 const classes = {
   overview: {

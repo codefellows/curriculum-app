@@ -9,10 +9,10 @@ import TreeItem from '@material-ui/lab/TreeItem';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 
-import {When} from '../components/if';
+import {When} from '../../components/if';
 
 // Store
-import { selectPage, setClass } from '../store/curriculum.store';
+import { selectPage, setClass } from '../../store/curriculum.store';
 
 const classes = {
   overview: {

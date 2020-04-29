@@ -12,9 +12,9 @@ import TrackChangesIcon from '@material-ui/icons/TrackChanges';
 import HowToRegIcon from '@material-ui/icons/HowToReg';
 import ViewListIcon from '@material-ui/icons/ViewList';
 
-import {When} from '../components/if';
+import {When} from '../../components/if';
 
-import {selectPage} from '../store/curriculum.store.js';
+import {selectPage} from '../../store/curriculum.store.js';
 
 function Header( {drawerWidth, curriculum, selectPage}) {
 
