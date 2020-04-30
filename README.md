@@ -33,22 +33,24 @@ GitHub Proxy
 
 Facilitator
 
-Home: <http://localhost:3001/facilitator>
-Direct: <http://localhost:3001/facilitator?repo=/codefellows/code-401-javascript-guide&file=/curriculum/class-07/facilitator/DEMO.md&version=2#overview>
+- Home: <http://localhost:3001/facilitator>
+- Direct: <http://localhost:3001/facilitator?repo=/codefellows/code-401-javascript-guide&file=/curriculum/class-07/facilitator/DEMO.md&version=2#overview>
+- Live: <https://codefellows-curriculum.netlify.app/facilitator?repo=/codefellows/code-401-javascript-guide&file=/curriculum/class-02/DISCUSSION.md&version=2>
 
 Canvas Assignment
 
-<http://localhost:3001/assignment?repo=/codefellows/code-401-javascript-guide&file=/curriculum/class-03/README.md&version=2>
+- Local: <http://localhost:3001/assignment?repo=/codefellows/code-401-javascript-guide&file=/curriculum/class-03/README.md&version=2>
+- Live: <https://codefellows-curriculum.netlify.app/assignment?repo=/codefellows/code-401-javascript-guide&file=/curriculum/class-17/README.md&version=2>
 
 Student / Class Page (links to the class repo)
 
-Home: <http://localhost:3001/student/codefellows/code-401-javascript-guide>
-Direct: <http://localhost:3001/student/codefellows/code-401-javascript-guide/module-1/class-01>
+- Home: <http://localhost:3001/student/codefellows/code-401-javascript-guide>
+- Direct: <http://localhost:3001/student/codefellows/code-401-javascript-guide/module-1/class-01>
+- Live: <https://codefellows-curriculum.netlify.app/student/codefellows/code-401-javascript-guide>
 
 TODO
 
-- Make the facilitator, student share page.js from content
-- Make the assignment also share that style set
 - Consider giving the facilitator the same buttons as the student
 - Any way to get the back button to work? (Time travel?)
-- Can all that theme shit go to the top level?
+- Perfect Manifest
+- Check every link

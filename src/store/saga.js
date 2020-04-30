@@ -7,7 +7,7 @@ const sampleManifest = require('./manifest.json');
 
 const proxy = process.env.REACT_APP_GITHUB_PROXY;
 
-// More specific selectors for cleanliness
+// Maybe switch to more specific selectors for cleanliness
 // const getItems = state => state.items;
 
 // Superagent Wrapper, yielded by saga's call() method
