@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-// import {Link} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 
 import {openDemo, selectPage} from '../../store/curriculum.store.js';
 
@@ -40,8 +40,8 @@ function CustomLink({href,children,curriculum,openDemo,selectPage}) {
 
   };
 
-  return <a href={href} onClick={handleClick}>{children}</a>;
-  // return <Link onClick={handleClick} to={href}>{children}</Link>;
+  // return <a href={href} onClick={handleClick}>{children}</a>;
+  return <Link onClick={handleClick} to={href}>{children}</Link>;
 }
 
 const mapStateToProps = ({ curriculum }) => ({ curriculum });

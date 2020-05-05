@@ -15,11 +15,16 @@ const curriculum = createSlice({
     repo: '',          // Currently Active Repository
     version: '',       // Currently Active Version of the Repository
     file: '',          // Currently Active markdown file
+    error: '',         // Any Error Messages
   },
   reducers: {
 
     init(state, action) {},
 
+    setError( state, action) {
+      console.warn('ERROR', action.payload);
+      state.error = action.payload;
+    },
     setRepositories(state, action) {
       state.repositories = action.payload;
     },

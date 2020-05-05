@@ -58,80 +58,96 @@ function* initializeApp(action) {
   }
 
   // Always, fetch the list of available courses
-  const endpoint = `/repos`;
-  const selections = {};
-  const response = yield call(api, endpoint, selections);
-  const courses = JSON.parse(response.text);
 
-  yield put({ type: 'curriculum/setRepositories', payload: courses });
+  try {
+    const endpoint = `/repos`;
+    const selections = {};
+    const response = yield call(api, endpoint, selections);
+    console.log('rt', response.text);
+    const courses = JSON.parse(response.text);
+    yield put({ type: 'curriculum/setRepositories', payload: courses });
+  } catch(e) {
+    yield put({ type: 'curriculum/setError', payload:e.message});
+  }
+
 
 }
 
 function* loadVersions() {
 
-  const state = yield select();
-  const endpoint = `/releases`;
-  const selections = { repo: state.curriculum.repo };
-  const response = yield call(api, endpoint, selections);
-  const versions = JSON.parse(response.text);
-
-  yield put({ type: 'curriculum/setVersions', payload:versions });
+  try {
+    const state = yield select();
+    const endpoint = `/releases`;
+    const selections = { repo: state.curriculum.repo };
+    const response = yield call(api, endpoint, selections);
+    const versions = JSON.parse(response.text);
+    yield put({ type: 'curriculum/setVersions', payload:versions });
+  } catch (e) {
+    yield put({ type: 'curriculum/setError', payload: e.message });
+  }
 
 }
 
 function* loadManifest() {
 
-  let test = true;
-
-  if ( test ) {
-    yield put({ type: 'curriculum/setPages', payload: sampleManifest });
-    return;
+  try {
+    let test = true;
+    if ( test ) {
+      yield put({ type: 'curriculum/setPages', payload: sampleManifest });
+      return;
+    }
+    const state = yield select();
+    const endpoint = `/manifest`;
+    const selections = {
+      repo: state.curriculum.repo,
+      version: state.curriculum.version,
+    };
+    const response = yield call(api, endpoint, selections);
+    const manifest = JSON.parse(response.text);
+    yield put({ type: 'curriculum/setPages', payload: manifest });
+  } catch (e) {
+    yield put({ type: 'curriculum/setError', payload: e.message });
   }
-
-  const state = yield select();
-  const endpoint = `/manifest`;
-  const selections = {
-    repo: state.curriculum.repo,
-    version: state.curriculum.version,
-  };
-  const response = yield call(api, endpoint, selections);
-  const manifest = JSON.parse(response.text);
-
-  yield put({ type: 'curriculum/setPages', payload: manifest });
 
 }
 
 function* loadPage() {
 
-  const state = yield select();
-  const endpoint = `/content`;
-  const selections = {
-    repo: state.curriculum.repo,
-    version: state.curriculum.version,
-    file: state.curriculum.file,
-  };
-  const response = yield call(api, endpoint, selections);
-  const content = response.text;
-  const title = yield getTitle(content);
-
-  yield put({ type: 'curriculum/setTitle', payload: title });
-  yield put({ type: 'curriculum/setMarkdown', payload: content });
-
+  try {
+    const state = yield select();
+    const endpoint = `/content`;
+    const selections = {
+      repo: state.curriculum.repo,
+      version: state.curriculum.version,
+      file: state.curriculum.file,
+    };
+    const response = yield call(api, endpoint, selections);
+    const content = response.text;
+    const title = yield getTitle(content);
+    if ( content === '{}' ) { throw new Error('No Content Found'); }
+    yield put({ type: 'curriculum/setTitle', payload: title });
+    yield put({ type: 'curriculum/setMarkdown', payload: content });
+  } catch (e) {
+    yield put({ type: 'curriculum/setError', payload: e.message });
+  }
 }
 
 function* loadDemo() {
 
-  const state = yield select();
-  const endpoint = `/tree`;
-  const selections = {
-    repo: state.curriculum.repo,
-    version: state.curriculum.version,
-    path: state.curriculum.demoFolder,
-  };
-  const response = yield call(api, endpoint, selections);
-  const tree = JSON.parse(response.text);
-
-  yield put({ type: 'curriculum/setDemoFiles', payload:tree });
-
+  try {
+    const state = yield select();
+    const endpoint = `/tree`;
+    const selections = {
+      repo: state.curriculum.repo,
+      version: state.curriculum.version,
+      path: state.curriculum.demoFolder,
+    };
+    const response = yield call(api, endpoint, selections);
+    const tree = JSON.parse(response.text);
+    if ( ! tree.files.length ) { throw new Error('Nothing to Demo'); }
+    yield put({ type: 'curriculum/setDemoFiles', payload:tree });
+  } catch (e) {
+    yield put({ type: 'curriculum/setError', payload: e.message });
+  }
 }
 
