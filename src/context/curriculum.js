@@ -30,6 +30,8 @@ function Curriculum(props) {
     root: {
       display: 'flex',
       backgroundColor: '#FBFCFC',
+      height: '100%',
+      width: '100%',
     },
     // necessary for content to be below app bar
     toolbar: theme.mixins.toolbar,
