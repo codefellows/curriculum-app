@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {Link} from 'react-router-dom';
+// import {Link} from 'react-router-dom';
 
 import {openDemo, selectPage} from '../../store/curriculum.store.js';
 
@@ -12,7 +12,7 @@ function CustomLink({href,children,curriculum,openDemo,selectPage}) {
 
   const handleClick = (e) => {
 
-    if (! href.startsWith('#')) {
+    if (! href.includes('#')) {
 
       e.preventDefault();
 
@@ -37,9 +37,11 @@ function CustomLink({href,children,curriculum,openDemo,selectPage}) {
         selectPage(url.pathname);
       }
     }
+
   };
 
-  return <Link onClick={handleClick} to={href}>{children}</Link>;
+  return <a href={href} onClick={handleClick}>{children}</a>;
+  // return <Link onClick={handleClick} to={href}>{children}</Link>;
 }
 
 const mapStateToProps = ({ curriculum }) => ({ curriculum });
