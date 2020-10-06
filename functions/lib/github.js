@@ -2,7 +2,10 @@
 
 const { Octokit } = require('@octokit/rest');
 const { graphql } = require('@octokit/graphql');
+const Redis = require('ioredis');
 const semver = require('semver');
+
+const redis = new Redis(process.env.REDIS_URL);
 
 const octokit = new Octokit({
   auth: process.env.TOKEN,
@@ -18,13 +21,15 @@ const github = module.exports = {};
 
 github.getReleases = async (repo) => {
 
+  if (!repo) { return []; }
+
   try {
     const [org, repository] = repo.split('/');
 
     const query = `
       {
         repository(name: "${repository}", owner: "${org}") {
-          releases(last: 10, orderBy: {field: CREATED_AT, direction: DESC}) {
+          releases(first: 10, orderBy: {field: CREATED_AT, direction: DESC}) {
             edges {
               node {
                 tagName
@@ -37,11 +42,11 @@ github.getReleases = async (repo) => {
 
     const response = await octokitGraphql(query);
 
-    const releases = response.repository.releases.edges.map( release => release.node.tagName );
+    const releases = response.repository.releases.edges.map(release => release.node.tagName);
 
     return releases;
 
-  } catch(e) {
+  } catch (e) {
     console.error(`ERROR getReleases(${repo})`, e);
     return [];
   }
@@ -93,10 +98,10 @@ github.getRepositories = async () => {
   try {
 
     const response = await octokitGraphql(query);
-    const repos = response.search.edges.map( repo => repo.node.name ).sort();
+    const repos = response.search.edges.map(repo => repo.node.name).sort();
     return repos;
 
-  } catch(e) {
+  } catch (e) {
     console.error('ERROR getRepositories()', e);
     return [];
   }
@@ -106,6 +111,12 @@ github.getRepositories = async () => {
 github.getContent = async (repo, file, version) => {
 
   try {
+
+    const cacheKey = `CONTENT-${repo}-${file}-${version}`;
+    let cachedContent = await getFromCache(cacheKey);
+    if (cachedContent) { console.log('CONTENT from cache'); return cachedContent; }
+
+    if (!(repo && file && version)) { throw new Error('Invalid request') }
 
     const [org, repository] = repo.split('/');
 
@@ -124,6 +135,9 @@ github.getContent = async (repo, file, version) => {
     const response = await octokitGraphql(query);
 
     const content = response.repository.content.text;
+
+    await setCache(cacheKey, content);
+
     return content;
 
   } catch (e) {
@@ -134,13 +148,41 @@ github.getContent = async (repo, file, version) => {
 };
 
 github.getManifest = async (repo, version) => {
-  const manifest = await  github.getContent( repo, 'manifest.json', version);
+
+  const cacheKey = `MANIFEST-${repo}-${version}`;
+  const cachedManifest = await getFromCache(cacheKey);
+  if (cachedManifest) { console.log('MANIFEST from cache'); return cachedManifest; }
+
+  const manifest = await github.getContent(repo, 'manifest.json', version);
+  await setCache(cacheKey, manifest);
   return manifest;
+};
+
+github.getZip = async () => {
+  try {
+    const zip = await octokit.repos.getArchiveLink({
+      owner: 'codefellows',
+      repo: 'code-401-javascript-guide',
+      artifact_id: '2.0.2',
+      archive_format: 'zipball',
+    });
+
+    console.log('Zip', zip);
+  } catch (e) {
+    console.error(e.message);
+  }
 };
 
 github.getTree = async (repo, version, path) => {
 
+  // github.getZip();
+  // return null;
+
   try {
+
+    const cacheKey = `TREE-${repo}-${path}-${version}`;
+    const cachedTree = await getFromCache(cacheKey);
+    if (cachedTree) { console.log('TREE from cache', cacheKey); return cachedTree; }
 
     const [org, repository] = repo.split('/');
 
@@ -186,7 +228,7 @@ github.getTree = async (repo, version, path) => {
       // Add to the list, and also fire a request for content, in parallel
       if (file.path.startsWith(path)) {
         file = file.path.replace(path, '').replace(/^\//, '');
-        if(file) {
+        if (file) {
           acc.push(file);
           requests.push(github.getContent(repo, `${path}/${file}`, version));
         }
@@ -210,6 +252,8 @@ github.getTree = async (repo, version, path) => {
       return hier;
     }, {});
 
+    await setCache(cacheKey, tree);
+
     return tree;
 
   } catch (e) {
@@ -218,3 +262,19 @@ github.getTree = async (repo, version, path) => {
   }
 
 };
+
+// Cache Stuff ... should be moved to a DB or Redis or something
+const cache = {};
+
+github.getCache = () => {
+  return cache;
+}
+
+async function getFromCache(key) {
+  const value = await redis.get(key);
+  return value;
+}
+
+async function setCache(key, value) {
+  return redis.set(key, value);
+}

@@ -10,6 +10,8 @@ exports.handler = async (event, context, callback) => {
   const requestedVersion = request.version;
   const path = request.path;
 
+  // await github.getTree();
+  // return;
   const version = await github.getVersion(repo, requestedVersion);
   const files = await github.getTree(repo, version, path);
 

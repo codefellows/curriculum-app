@@ -144,7 +144,7 @@ function* loadDemo() {
     };
     const response = yield call(api, endpoint, selections);
     const tree = JSON.parse(response.text);
-    if ( ! tree.files.length ) { throw new Error('Nothing to Demo'); }
+    if ( ! Object.keys(tree.files).length ) { throw new Error('Nothing to Demo'); }
     yield put({ type: 'curriculum/setDemoFiles', payload:tree });
   } catch (e) {
     yield put({ type: 'curriculum/setError', payload: e.message });
