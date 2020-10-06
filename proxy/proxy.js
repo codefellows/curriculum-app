@@ -1,6 +1,7 @@
 'use strict';
 
 require('dotenv').config();
+let path = require('path');
 let express = require('express');
 let cors = require('cors');
 
@@ -15,7 +16,9 @@ let app = express();
 
 app.use(cors());
 app.use(express.json());
-app.use(express.static('../build'))
+app.use(express.static('./build'))
+
+console.log(process.cwd());
 
 app.post('/content', page);
 app.post('/manifest', manifest);
@@ -23,6 +26,10 @@ app.post('/releases', releases);
 app.post('/repos', repos);
 app.post('/tree', tree);
 app.get('/cache', cache);
+
+app.use('*', (req, res) => {
+  res.sendFile(path.resolve(process.cwd(), './build', 'index.html'));
+});
 
 
 async function cache(req, res) {

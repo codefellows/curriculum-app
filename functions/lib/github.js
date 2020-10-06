@@ -182,7 +182,10 @@ github.getTree = async (repo, version, path) => {
 
     const cacheKey = `TREE-${repo}-${path}-${version}`;
     const cachedTree = await getFromCache(cacheKey);
-    if (cachedTree) { console.log('TREE from cache', cacheKey); return cachedTree; }
+    if (cachedTree) {
+      console.log('TREE from cache', cacheKey);
+      return JSON.parse(cachedTree);
+    }
 
     const [org, repository] = repo.split('/');
 
@@ -252,7 +255,7 @@ github.getTree = async (repo, version, path) => {
       return hier;
     }, {});
 
-    await setCache(cacheKey, tree);
+    await setCache(cacheKey, JSON.stringify(tree));
 
     return tree;
 
