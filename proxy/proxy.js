@@ -4,6 +4,7 @@ require('dotenv').config();
 let path = require('path');
 let express = require('express');
 let cors = require('cors');
+let axios = require('axios');
 
 let getContent = require('../functions/content.js').handler;
 let getManifest = require('../functions/manifest.js').handler;
@@ -25,6 +26,7 @@ app.post('/releases', releases);
 app.post('/repos', repos);
 app.post('/tree', tree);
 app.get('/cache', cache);
+app.get('/image', image)
 
 app.use('*', (req, res) => {
   res.sendFile(path.resolve(buildFolder, 'index.html'));
@@ -108,6 +110,15 @@ async function tree(req, res) {
   } catch (e) {
     res.status(500).send(e.message);
   }
+}
+
+async function image(req, res) {
+  const { repo, version, path, image } = req.query;
+  const source = `https://raw.githubusercontent.com/${repo}/${version}/${path}/${image}`;
+  const headers = { Authorization: `token ${process.env.TOKEN}` };
+  let response = await axios.get(source, { responseType: 'arraybuffer', headers });
+  let imageSource = Buffer.from(response.data).toString('base64')
+  res.send(imageSource);
 }
 
 app.listen(process.env.PORT, () => console.log('Listening on', process.env.PORT));

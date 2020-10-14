@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import { openDemo, selectPage } from '../../store/curriculum.store.js';
+import { openDemo, selectPage } from '../../../store/curriculum.store.js';
 
 // This Link Renderer adds some special onClick logic for every <a> tag in the content
 // this allows us to let the menu items link through, intercept calls for actual content

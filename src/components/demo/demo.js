@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 
 import TreeView from '@material-ui/lab/TreeView';
 import TreeItem from '@material-ui/lab/TreeItem';
@@ -6,29 +6,29 @@ import FileIcon from '@material-ui/icons/InsertDriveFileOutlined';
 import FolderIconOpen from '@material-ui/icons/FolderOutlined';
 import FolderIcon from '@material-ui/icons/FolderOpenOutlined';
 
-import CodeBlock from '../content/code.js';
+import CodeBlock from '../content/renderers/code.js';
 
 import './demo.scss';
 
-function Demo( {tree} ) {
+function Demo({ tree }) {
 
   const [code, setCode] = useState('');
   const [language, setLanguage] = useState('');
 
   const languages = {
-    js:'javascript',
+    js: 'javascript',
     json: 'json',
     py: 'python',
     java: 'java',
     cs: 'csharp',
     html: 'html',
     cshtml: 'html',
-    css:'css',
-    scss:'css',
+    css: 'css',
+    scss: 'css',
   };
 
   const showCode = (file, item) => {
-    if ( item.content ) {
+    if (item.content) {
       let ext = file.split('.').pop();
       setLanguage(languages[ext]);
       setCode(item.content);
@@ -36,14 +36,14 @@ function Demo( {tree} ) {
   };
 
   const renderTree = ({ ...item }) => {
-    return Object.keys(item).reduce( (list,key) => {
+    return Object.keys(item).reduce((list, key) => {
       if (typeof item[key] === 'object') {
         const newItem = (
           <TreeItem
             nodeId={key}
             key={key}
             label={key}
-            onClick={() => showCode(key,item[key])}
+            onClick={() => showCode(key, item[key])}
           >
             {renderTree(item[key])}
           </TreeItem>
@@ -51,7 +51,7 @@ function Demo( {tree} ) {
         list.push(newItem);
       }
       return list;
-    },[]);
+    }, []);
   };
 
   return (

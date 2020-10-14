@@ -120,6 +120,9 @@ function* loadPage() {
       version: state.curriculum.version,
       file: state.curriculum.file,
     };
+
+    if (!(selections.repo && selections.version && selections.file)) { return; }
+
     const response = yield call(api, endpoint, selections);
     const content = response.text;
     const title = yield getTitle(content);
