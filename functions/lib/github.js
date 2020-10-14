@@ -175,15 +175,13 @@ github.getZip = async () => {
 
 github.getTree = async (repo, version, path) => {
 
-  // github.getZip();
-  // return null;
-
   try {
+
+    if (!(repo && version && path)) { throw new Error("Invalid params") }
 
     const cacheKey = `TREE-${repo}-${path}-${version}`;
     const cachedTree = await getFromCache(cacheKey);
     if (cachedTree) {
-      console.log('TREE from cache', cacheKey);
       return JSON.parse(cachedTree);
     }
 
@@ -213,8 +211,11 @@ github.getTree = async (repo, version, path) => {
 
     const response = await octokitGraphql(query);
 
+    // Get the "sha" of the repo at the specified version
     const sha = response.repository.ref.target.history.edges[0].node.tree.oid;
 
+    // use that "sha" to fetch the full file tree
+    // this is big, but it's the only way to get the full structure
     const list = await octokit.git.getTree({
       owner: org,
       repo: repository,
@@ -224,7 +225,7 @@ github.getTree = async (repo, version, path) => {
 
     const requests = [];
 
-    // build a list of files, ordered by where they are in the directories
+    // build a list of files (everything in the repo), ordered by where they are in the directories and fetch in parallel
     const fileList = list.data.tree.reduce((acc, file) => {
       path = path.replace(/^\//, '');
       // Filter out those not in our requested path
@@ -239,12 +240,12 @@ github.getTree = async (repo, version, path) => {
       return acc;
     }, []);
 
-    // All of the content requests in an array
+    // All of the content requests in an array, from the parallel fetching move above
     const contents = await Promise.all(requests);
 
-    // Merge the file names and content, in a hierarchy/tree
-    const tree = fileList.reduce(function (hier, file, idx) {
-      let x = hier;
+    // Now, Merge the file names and content, a hierarchy/tree
+    const tree = fileList.reduce(function (fileTree, file, idx) {
+      let x = fileTree;
       file.split('/').forEach(function (item) {
         if (!x[item]) {
           x[item] = {};
@@ -252,7 +253,7 @@ github.getTree = async (repo, version, path) => {
         x = x[item];
       });
       if (contents[idx]) { x.content = contents[idx]; }
-      return hier;
+      return fileTree;
     }, {});
 
     await setCache(cacheKey, JSON.stringify(tree));
@@ -265,9 +266,6 @@ github.getTree = async (repo, version, path) => {
   }
 
 };
-
-// Cache Stuff ... should be moved to a DB or Redis or something
-const cache = {};
 
 github.getCache = () => {
   return cache;

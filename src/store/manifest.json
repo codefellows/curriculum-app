@@ -34,14 +34,38 @@
           "name": "Classes, Inheritance",
           "overview": "/curriculum/class-02/README.md",
           "assignments": {
-            "reading": "/curriculum/class-02/DISCUSSION.md",
-            "lab": "/curriculum/class-02/lab/README.md"
+            "reading": {
+              "repository": "code-401-javascript-guide",
+              "version": 4.2,
+              "file": "/curriculum/class-02/DISCUSSION.md"
+            },
+            "lab": {
+              "repository": "code-401-javascript-guide",
+              "version": 4.2,
+              "file": "/curriculum/class-02/lab/README.md"
+            }
           },
           "facilitator": {
-            "guide": "/curriculum/class-02/facilitator/README.md",
-            "demo prep": "/curriculum/class-02/facilitator/DEMO.md",
-            "code demos": "",
-            "lecture example": "/curriculum/class-02/facilitator/LECTURE-EXAMPLE.md"
+            "guide": {
+              "repository": "code-401-javascript-guide",
+              "version": 4.2,
+              "file": "/curriculum/class-02/facilitator/README.md"
+            },
+            "lecture example": {
+              "repository": "code-401-javascript-guide",
+              "version": 4.2,
+              "file": "/curriculum/class-02/facilitator/LECTURE.md"
+            },
+            "demo prep": {
+              "repository": "code-401-javascript-guide",
+              "version": 4.2,
+              "file": "/curriculum/class-02/facilitator/DEMO.md"
+            },
+            "code demos": {
+              "repository": "code-401-javascript-guide",
+              "version": 4.2,
+              "file": "/curriculum/class-02/demo"
+            }
           }
         },
         {
@@ -55,7 +79,7 @@
           "facilitator": {
             "guide": "/curriculum/class-03/facilitator/README.md",
             "demo prep": "/curriculum/class-03/facilitator/DEMO.md",
-            "code demos": "",
+            "code demos": "/curriculum/class-03/demo",
             "lecture example": "/curriculum/class-03/facilitator/LECTURE-EXAMPLE.md"
           }
         },
@@ -70,7 +94,7 @@
           "facilitator": {
             "guide": "/curriculum/class-04/facilitator/README.md",
             "demo prep": "/curriculum/class-04/facilitator/DEMO.md",
-            "code demos": "",
+            "code demos": "/curriculum/class-04/demo",
             "lecture example": "/curriculum/class-04/facilitator/LECTURE-EXAMPLE.md"
           }
         }
@@ -93,7 +117,7 @@
           "facilitator": {
             "guide": "/curriculum/class-06/facilitator/README.md",
             "demo prep": "/curriculum/class-06/facilitator/DEMO.md",
-            "code demos": "",
+            "code demos": "/curriculum/class-06/demo",
             "lecture example": "/curriculum/class-06/facilitator/LECTURE-EXAMPLE.md"
           }
         },
@@ -108,7 +132,7 @@
           "facilitator": {
             "guide": "/curriculum/class-07/facilitator/README.md",
             "demo prep": "/curriculum/class-07/facilitator/DEMO.md",
-            "code demos": "",
+            "code demos": "/curriculum/class-07/demo",
             "lecture example": "/curriculum/class-07/facilitator/LECTURE-EXAMPLE.md"
           }
         },
@@ -123,7 +147,7 @@
           "facilitator": {
             "guide": "/curriculum/class-08/facilitator/README.md",
             "demo prep": "/curriculum/class-08/facilitator/DEMO.md",
-            "code demos": "",
+            "code demos": "/curriculum/class-08/demo",
             "lecture example": "/curriculum/class-08/facilitator/LECTURE-EXAMPLE.md"
           }
         },
@@ -138,7 +162,7 @@
           "facilitator": {
             "guide": "/curriculum/class-09/facilitator/README.md",
             "demo prep": "/curriculum/class-09/facilitator/DEMO.md",
-            "code demos": "",
+            "code demos": "/curriculum/class-09/demo",
             "lecture example": "/curriculum/class-09/facilitator/LECTURE-EXAMPLE.md"
           }
         }
@@ -161,7 +185,7 @@
           "facilitator": {
             "guide": "/curriculum/class-11/facilitator/README.md",
             "demo prep": "/curriculum/class-11/facilitator/DEMO.md",
-            "code demos": "",
+            "code demos": "/curriculum/class-11/demo",
             "lecture example": "/curriculum/class-11/facilitator/LECTURE-EXAMPLE.md"
           }
         },
@@ -176,7 +200,7 @@
           "facilitator": {
             "guide": "/curriculum/class-12/facilitator/README.md",
             "demo prep": "/curriculum/class-12/facilitator/DEMO.md",
-            "code demos": "",
+            "code demos": "/curriculum/class-12/demo",
             "lecture example": "/curriculum/class-12/facilitator/LECTURE-EXAMPLE.md"
           }
         },
@@ -191,7 +215,7 @@
           "facilitator": {
             "guide": "/curriculum/class-13/facilitator/README.md",
             "demo prep": "/curriculum/class-13/facilitator/DEMO.md",
-            "code demos": "",
+            "code demos": "/curriculum/class-13/demo",
             "lecture example": "/curriculum/class-13/facilitator/LECTURE-EXAMPLE.md"
           }
         },
@@ -206,7 +230,7 @@
           "facilitator": {
             "guide": "/curriculum/class-14/facilitator/README.md",
             "demo prep": "/curriculum/class-14/facilitator/DEMO.md",
-            "code demos": "",
+            "code demos": "/curriculum/class-14/demo",
             "lecture example": "/curriculum/class-14/facilitator/LECTURE-EXAMPLE.md"
           }
         }
@@ -229,7 +253,7 @@
           "facilitator": {
             "guide": "/curriculum/class-16/facilitator/README.md",
             "demo prep": "/curriculum/class-16/facilitator/DEMO.md",
-            "code demos": "",
+            "code demos": "/curriculum/class-15/demo",
             "lecture example": "/curriculum/class-16/facilitator/LECTURE-EXAMPLE.md"
           }
         },
@@ -244,7 +268,7 @@
           "facilitator": {
             "guide": "/curriculum/class-17/facilitator/README.md",
             "demo prep": "/curriculum/class-17/facilitator/DEMO.md",
-            "code demos": "",
+            "code demos": "/curriculum/class-16/demo",
             "lecture example": "/curriculum/class-17/facilitator/LECTURE-EXAMPLE.md"
           }
         },
@@ -259,7 +283,7 @@
           "facilitator": {
             "guide": "/curriculum/class-18/facilitator/README.md",
             "demo prep": "/curriculum/class-18/facilitator/DEMO.md",
-            "code demos": "",
+            "code demos": "/curriculum/class-18/demo",
             "lecture example": "/curriculum/class-18/facilitator/LECTURE-EXAMPLE.md"
           }
         },
@@ -274,7 +298,7 @@
           "facilitator": {
             "guide": "/curriculum/class-19/facilitator/README.md",
             "demo prep": "/curriculum/class-19/facilitator/DEMO.md",
-            "code demos": "",
+            "code demos": "/curriculum/class-19/demo",
             "lecture example": "/curriculum/class-19/facilitator/LECTURE-EXAMPLE.md"
           }
         }
@@ -297,7 +321,7 @@
           "facilitator": {
             "guide": "/curriculum/class-26/facilitator/README.md",
             "demo prep": "/curriculum/class-26/facilitator/DEMO.md",
-            "code demos": "",
+            "code demos": "/curriculum/class-26/demo",
             "lecture example": "/curriculum/class-26/facilitator/LECTURE-EXAMPLE.md"
           }
         },
@@ -312,7 +336,7 @@
           "facilitator": {
             "guide": "/curriculum/class-27/facilitator/README.md",
             "demo prep": "/curriculum/class-27/facilitator/DEMO.md",
-            "code demos": "",
+            "code demos": "/curriculum/class-27/demo",
             "lecture example": "/curriculum/class-27/facilitator/LECTURE-EXAMPLE.md"
           }
         },
@@ -327,7 +351,7 @@
           "facilitator": {
             "guide": "/curriculum/class-28/facilitator/README.md",
             "demo prep": "/curriculum/class-28/facilitator/DEMO.md",
-            "code demos": "",
+            "code demos": "/curriculum/class-28/demo",
             "lecture example": "/curriculum/class-28/facilitator/LECTURE-EXAMPLE.md"
           }
         },
@@ -342,7 +366,7 @@
           "facilitator": {
             "guide": "/curriculum/class-29/facilitator/README.md",
             "demo prep": "/curriculum/class-29/facilitator/DEMO.md",
-            "code demos": "",
+            "code demos": "/curriculum/class-29/demo",
             "lecture example": "/curriculum/class-29/facilitator/LECTURE-EXAMPLE.md"
           }
         }
@@ -365,7 +389,7 @@
           "facilitator": {
             "guide": "/curriculum/class-31/facilitator/README.md",
             "demo prep": "/curriculum/class-31/facilitator/DEMO.md",
-            "code demos": "",
+            "code demos": "/curriculum/class-31/demo",
             "lecture example": "/curriculum/class-31/facilitator/LECTURE-EXAMPLE.md"
           }
         },
@@ -380,7 +404,7 @@
           "facilitator": {
             "guide": "/curriculum/class-32/facilitator/README.md",
             "demo prep": "/curriculum/class-32/facilitator/DEMO.md",
-            "code demos": "",
+            "code demos": "/curriculum/class-32/demo",
             "lecture example": "/curriculum/class-32/facilitator/LECTURE-EXAMPLE.md"
           }
         },
@@ -395,7 +419,7 @@
           "facilitator": {
             "guide": "/curriculum/class-33/facilitator/README.md",
             "demo prep": "/curriculum/class-33/facilitator/DEMO.md",
-            "code demos": "",
+            "code demos": "/curriculum/class-33/demo",
             "lecture example": "/curriculum/class-33/facilitator/LECTURE-EXAMPLE.md"
           }
         },
@@ -410,7 +434,7 @@
           "facilitator": {
             "guide": "/curriculum/class-34/facilitator/README.md",
             "demo prep": "/curriculum/class-34/facilitator/DEMO.md",
-            "code demos": "",
+            "code demos": "/curriculum/class-34/demo",
             "lecture example": "/curriculum/class-34/facilitator/LECTURE-EXAMPLE.md"
           }
         }
@@ -433,7 +457,7 @@
           "facilitator": {
             "guide": "/curriculum/class-36/facilitator/README.md",
             "demo prep": "/curriculum/class-36/facilitator/DEMO.md",
-            "code demos": "",
+            "code demos": "/curriculum/class-35/demo",
             "lecture example": "/curriculum/class-36/facilitator/LECTURE-EXAMPLE.md"
           }
         },
@@ -448,7 +472,7 @@
           "facilitator": {
             "guide": "/curriculum/class-37/facilitator/README.md",
             "demo prep": "/curriculum/class-37/facilitator/DEMO.md",
-            "code demos": "",
+            "code demos": "/curriculum/class-36/demo",
             "lecture example": "/curriculum/class-37/facilitator/LECTURE-EXAMPLE.md"
           }
         },
@@ -463,7 +487,7 @@
           "facilitator": {
             "guide": "/curriculum/class-38/facilitator/README.md",
             "demo prep": "/curriculum/class-38/facilitator/DEMO.md",
-            "code demos": "",
+            "code demos": "/curriculum/class-38/demo",
             "lecture example": "/curriculum/class-38/facilitator/LECTURE-EXAMPLE.md"
           }
         },
@@ -478,7 +502,7 @@
           "facilitator": {
             "guide": "/curriculum/class-39/facilitator/README.md",
             "demo prep": "/curriculum/class-39/facilitator/DEMO.md",
-            "code demos": "",
+            "code demos": "/curriculum/class-39/demo",
             "lecture example": "/curriculum/class-39/facilitator/LECTURE-EXAMPLE.md"
           }
         }
@@ -501,7 +525,7 @@
           "facilitator": {
             "guide": "/curriculum/class-41/facilitator/README.md",
             "demo prep": "/curriculum/class-41/facilitator/DEMO.md",
-            "code demos": "",
+            "code demos": "/curriculum/class-41/demo",
             "lecture example": "/curriculum/class-41/facilitator/LECTURE-EXAMPLE.md"
           }
         },
@@ -516,7 +540,7 @@
           "facilitator": {
             "guide": "/curriculum/class-42/facilitator/README.md",
             "demo prep": "/curriculum/class-42/facilitator/DEMO.md",
-            "code demos": "",
+            "code demos": "/curriculum/class-42/demo",
             "lecture example": "/curriculum/class-42/facilitator/LECTURE-EXAMPLE.md"
           }
         },
@@ -531,7 +555,7 @@
           "facilitator": {
             "guide": "/curriculum/class-43/facilitator/README.md",
             "demo prep": "/curriculum/class-43/facilitator/DEMO.md",
-            "code demos": "",
+            "code demos": "/curriculum/class-43/demo",
             "lecture example": "/curriculum/class-43/facilitator/LECTURE-EXAMPLE.md"
           }
         },
@@ -546,7 +570,7 @@
           "facilitator": {
             "guide": "/curriculum/class-44/facilitator/README.md",
             "demo prep": "/curriculum/class-44/facilitator/DEMO.md",
-            "code demos": "",
+            "code demos": "/curriculum/class-44/demo",
             "lecture example": "/curriculum/class-44/facilitator/LECTURE-EXAMPLE.md"
           }
         }

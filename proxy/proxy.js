@@ -13,12 +13,11 @@ let getTree = require('../functions/tree.js').handler;
 let getCache = require('../functions/cache.js').handler;
 
 let app = express();
+let buildFolder = path.resolve(process.cwd(), './build');
 
 app.use(cors());
 app.use(express.json());
-app.use(express.static('./build'))
-
-console.log(process.cwd());
+app.use(express.static(buildFolder));
 
 app.post('/content', page);
 app.post('/manifest', manifest);
@@ -28,7 +27,7 @@ app.post('/tree', tree);
 app.get('/cache', cache);
 
 app.use('*', (req, res) => {
-  res.sendFile(path.resolve(process.cwd(), './build', 'index.html'));
+  res.sendFile(path.resolve(buildFolder, 'index.html'));
 });
 
 

@@ -1,8 +1,8 @@
 import React from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 
 // Store
-import {selectPage, openDemo} from '../../store/curriculum.store';
+import { selectPage, openDemo } from '../../store/curriculum.store';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -13,7 +13,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import OverViewIcon from '@material-ui/icons/DoubleArrow';
 
-import {When} from '../../components/if';
+import { When } from '../../components/if';
 
 const classes = {
   overview: {
@@ -28,7 +28,7 @@ const classes = {
   },
 };
 
-function Pages( {curriculum, selectPage, drawerWidth} ) {
+function Pages({ curriculum, selectPage, drawerWidth }) {
 
   const sections = curriculum.pages;
 
@@ -41,7 +41,7 @@ function Pages( {curriculum, selectPage, drawerWidth} ) {
       width: drawerWidth,
     },
     title: {
-      padding:'0 2rem',
+      padding: '0 2rem',
       color: '#800000',
     },
     tree: {
@@ -97,29 +97,29 @@ function Pages( {curriculum, selectPage, drawerWidth} ) {
 
 }
 
-function ModuleComponent( {module, selectPage}) {
+function ModuleComponent({ module, selectPage }) {
 
   return (
     <TreeItem nodeId={module.name} label={module.name} style={classes.module}>
       <TreeItem
-        icon={<OverViewIcon/>}
+        icon={<OverViewIcon />}
         nodeId={`${module.name}-overview`}
         label='Overview' style={classes.class}
         onClick={() => selectPage(module.overview)}>
       </TreeItem>
       {
-        module.classes.map( classItem => <ClassEntry key={Math.random()} classItem={classItem} />)
+        module.classes.map(classItem => <ClassEntry key={Math.random()} classItem={classItem} />)
       }
     </TreeItem>
   );
 }
 
-function ClassEntryComponent({classItem}) {
+function ClassEntryComponent({ classItem }) {
 
   return (
     <TreeItem nodeId={classItem.name} label={`${classItem.class}-${classItem.name}`} style={classes.module}>
       {
-        Object.keys(classItem.facilitator).map( page =>
+        Object.keys(classItem.facilitator).map(page =>
           <ClassLink key={Math.random()} page={page} link={classItem.facilitator[page]} />,
         )
       }
@@ -127,7 +127,7 @@ function ClassEntryComponent({classItem}) {
   );
 }
 
-function ClassLinkComponent({page, link, openDemo, selectPage}) {
+function ClassLinkComponent({ page, link, openDemo, selectPage }) {
   const open = () => {
     if (page === 'code demos') {
       openDemo(link);

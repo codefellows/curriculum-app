@@ -7,7 +7,7 @@ const curriculum = createSlice({
     repositories: [],  // All valid repositories
     versions: [],      // All published versions of the current repo
     pages: [],         // The contents of manifest.json
-    demoFiles: {files:{}},     // The "tree" of the demo folder
+    demoFiles: { files: {} },     // The "tree" of the demo folder
     demoMode: false,   // Demo mode or Content mode
     demoFolder: '',    // The relative path to the demos folder
     classInfo: {},     // Info about the current class day
@@ -19,9 +19,9 @@ const curriculum = createSlice({
   },
   reducers: {
 
-    init(state, action) {},
+    init(state, action) { },
 
-    setError( state, action) {
+    setError(state, action) {
       console.warn('ERROR', action.payload);
       state.error = action.payload;
     },
@@ -67,7 +67,7 @@ const curriculum = createSlice({
       state.markdown = '';
       state.pages = [];
     },
-    selectVersion(state,action) {
+    selectVersion(state, action) {
       const version = action.payload;
       state.title = `${state.repo.split('/').pop()} @ ${version}`;
       state.version = action.payload;
@@ -79,7 +79,7 @@ const curriculum = createSlice({
       state.file = action.payload;
       state.demoMode = false;
     },
-    openDemo(state,action) {
+    openDemo(state, action) {
       state.demoMode = true;
       state.demoFolder = action.payload;
     },

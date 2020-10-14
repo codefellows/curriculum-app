@@ -1,18 +1,24 @@
 import React from 'react';
-import {connect} from 'react-redux';
-import {Link} from 'react-router-dom';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
-import {openDemo, selectPage} from '../../store/curriculum.store.js';
+import { openDemo, selectPage } from '../../store/curriculum.store.js';
 
 // This Link Renderer adds some special onClick logic for every <a> tag in the content
 // this allows us to let the menu items link through, intercept calls for actual content
 // and redirect for demo links
 
-function CustomLink({href,children,curriculum,openDemo,selectPage}) {
+function CustomLink({ href, children, curriculum, openDemo, selectPage }) {
 
   const handleClick = (e) => {
 
-    if (! href.includes('#')) {
+    if (href.includes('#')) {
+      const hash = href.replace(/#/g, '');
+      const target = document.getElementById(hash);
+      target && target.scrollIntoView({ behavior: "smooth", block: "center" })
+    }
+
+    else {
 
       e.preventDefault();
 
@@ -22,7 +28,7 @@ function CustomLink({href,children,curriculum,openDemo,selectPage}) {
       }
 
       // Any demo link needs to spawn a new component
-      else if ( href.includes('demo') ) {
+      else if (href.includes('demo')) {
         href = href.replace(/^\//, ''); // remove any leading /
         const file = curriculum.file.replace(/^\//, ''); // remove any leading /
         const url = new URL(href, `http://x/${file}`);
