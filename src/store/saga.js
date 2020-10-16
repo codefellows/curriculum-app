@@ -42,9 +42,12 @@ function* initializeApp(action) {
 
   // Anything interesting in the URL or the path?
   let qs = queryString.parse(window.location.search);
+
   let course = qs.repo ? qs.repo.replace(/^\//, '') : action.payload;
-  let file = qs.file ? qs.file.replace(/^\//, '') : '/curriculum/README.md';
   let version = qs.version || 'master';
+  let moduleNumber = qs.module;
+  let classNumber = qs.class;
+  let assignment = qs.assignment;
 
   // Maybe pre-fetch pages, versions, content
   if (course) {
@@ -53,8 +56,8 @@ function* initializeApp(action) {
   if (version) {
     yield put({ type: 'curriculum/selectVersion', payload: version });
   }
-  if (file) {
-    yield put({ type: 'curriculum/selectPage', payload: file });
+  if (moduleNumber && classNumber && assignment) {
+    yield put({ type: 'curriculum/selectPage', payload: { moduleNumber, classNumber, assignment } });
   }
 
   // Always, fetch the list of available courses
@@ -115,11 +118,13 @@ function* loadPage() {
   try {
     const state = yield select();
     const endpoint = `/content`;
-    const selections = {
-      repo: state.curriculum.repo,
-      version: state.curriculum.version,
-      file: state.curriculum.file,
-    };
+
+    const baseRepo = state.curriculum.file.repository;
+    const repo = `/codefellows/${baseRepo}`;
+    const file = state.curriculum.file.path;
+    const version = state.curriculum.pages.dependencies[baseRepo];
+
+    const selections = { repo, version, file };
 
     if (!(selections.repo && selections.version && selections.file)) { return; }
 
@@ -139,12 +144,17 @@ function* loadDemo() {
   try {
     const state = yield select();
     const endpoint = `/tree`;
+
+    const baseRepo = state.curriculum.demo.repository;
+    const repo = `/codefellows/${baseRepo}`;
+    const path = state.curriculum.demo.path;
+    const version = state.curriculum.pages.dependencies[baseRepo];
+
     const selections = {
-      repo: state.curriculum.repo,
-      version: state.curriculum.version,
-      path: state.curriculum.demoFolder,
+      repo,
+      version,
+      path,
     };
-    console.log('LD', selections);
     const response = yield call(api, endpoint, selections);
     const tree = JSON.parse(response.text);
     if (!Object.keys(tree.files).length) { throw new Error('Nothing to Demo'); }

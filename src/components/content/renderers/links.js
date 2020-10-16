@@ -30,23 +30,33 @@ function CustomLink({ href, children, curriculum, openDemo, selectPage }) {
       // Any demo link needs to spawn a new component
       else if (href.includes('demo')) {
         href = href.replace(/^\//, ''); // remove any leading /
-        const file = curriculum.file.replace(/^\//, ''); // remove any leading /
+        const file = curriculum.file.path.replace(/^\//, ''); // remove any leading /
         const url = new URL(href, `http://x/${file}`);
-        openDemo(url.pathname);
+        const demo = {
+          repository: curriculum.file.repository,
+          path: url.pathname
+        }
+        openDemo(demo)
       }
 
       // Any relative link needs to change state so the content loader will fire
       else {
         href = href.replace(/^\//, ''); // remove any leading /
-        const file = curriculum.file.replace(/^\//, ''); // remove any leading /
+        const file = curriculum.file.path.replace(/^\//, ''); // remove any leading /
         const url = new URL(href, `http://x/${file}`);
-        selectPage(url.pathname);
+        const page = {
+          repository: curriculum.file.repository,
+          path: url.pathname
+        }
+        selectPage(page);
       }
     }
 
   };
 
-  // return <a href={href} onClick={handleClick}>{children}</a>;
+  if (href.startsWith('http')) {
+    return <a href={href} target="_blank" rel="noopener noreferrer">{children}</a>
+  }
   return <Link onClick={handleClick} to={href}>{children}</Link>;
 }
 

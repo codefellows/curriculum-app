@@ -140,8 +140,9 @@ github.getContent = async (repo, file, version) => {
 
     return content;
 
-  } catch (e) {
-    console.error(`ERROR getContent(${repo}, ${file}, ${version})`, e);
+  } catch (error) {
+    const message = { repo, file, version, error }
+    console.error(`ERROR getContent()`, message);
     return {};
   }
 

@@ -1,5 +1,6 @@
-import React, {useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
+import queryString from 'query-string';
 
 import { makeStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -11,12 +12,12 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import AppBar from '@material-ui/core/AppBar';
 
-import {selectCourse, selectVersion} from '../../store/curriculum.store.js';
+import { selectCourse, selectVersion } from '../../store/curriculum.store.js';
 
-function Header( {drawerWidth, curriculum, selectCourse, selectVersion }) {
+function Header({ drawerWidth, curriculum, selectCourse, selectVersion }) {
 
-  const [course,setCourse] = useState('');
-  const [version,setVersion] = useState('');
+  const [course, setCourse] = useState('');
+  const [version, setVersion] = useState('');
 
   const useStyles = makeStyles((theme) => ({
     appBar: {
@@ -32,8 +33,8 @@ function Header( {drawerWidth, curriculum, selectCourse, selectVersion }) {
     },
 
     title: {
-      flexGrow:1,
-      textAlign:'right',
+      flexGrow: 1,
+      textAlign: 'right',
       marginRight: '1rem',
     },
 
@@ -52,6 +53,16 @@ function Header( {drawerWidth, curriculum, selectCourse, selectVersion }) {
     setVersion(e.target.value);
     selectVersion(e.target.value);
   };
+
+  useEffect(() => {
+    if (curriculum.repositories.length && curriculum.versions.length) {
+      const qs = queryString.parse(window.location.search);
+      const requestedRepo = qs.repo ? qs.repo : '';
+      const requestedVersion = qs.version || '';
+      if (!course) { setCourse(requestedRepo); }
+      if (!version) { setVersion(requestedVersion); }
+    }
+  }, [curriculum, course, version]);
 
   return (
     <AppBar position="fixed" className={classes.appBar}>

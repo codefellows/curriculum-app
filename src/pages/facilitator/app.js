@@ -1,9 +1,9 @@
-import React, {useContext, useEffect} from 'react';
+import React, { useContext, useEffect } from 'react';
 
-import {useDispatch} from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
-import {init} from '../../store/curriculum.store.js';
-import {CurriculumContext} from '../../context/curriculum.js';
+import { init } from '../../store/curriculum.store.js';
+import { CurriculumContext } from '../../context/curriculum.js';
 
 import Content from '../../components/content/content.js';
 import Pages from './pages.js';
@@ -13,13 +13,18 @@ const drawerWidth = 320;
 
 function Page(props) {
 
+  const title = useSelector(state => state.curriculum.title);
   const dispatch = useDispatch();
   const context = useContext(CurriculumContext);
   const classes = context.useStyles();
 
-  useEffect( () => {
-    dispatch( init() );
+  useEffect(() => {
+    dispatch(init());
   }, [dispatch]);
+
+  useEffect(() => {
+    document.title = `Guide: ${title || ''}`;
+  }, [title]);
 
   return (
     <div className={classes.root}>

@@ -17,18 +17,28 @@ export default function Image({ src, alt }) {
 
     const getImage = async () => {
 
-      const file = curriculum.file.replace(/[^/]+$/, '').replace(/^\/|\/$/, '');
+      if (!src.match(/^http/)) {
 
-      const queryParams = {
-        repo: curriculum.repo,
-        version: curriculum.version,
-        path: file,
-        image: src,
-      };
+        const file = curriculum.file.path.replace(/[^/]+$/, '').replace(/^\/|\/$/g, '');
 
-      const source = await axios.get(`${process.env.REACT_APP_GITHUB_PROXY}/image`, { params: queryParams });
+        const repo = curriculum.file.repository;
 
-      if (!src.match(/^http/)) { setImageSrc(`data:image/jpeg;charset=utf-8;base64,${source.data}`); }
+        const org = 'codefellows';
+
+        const version = curriculum.pages.dependencies[repo];
+
+        const queryParams = {
+          org,
+          repo,
+          version,
+          path: file,
+          image: src,
+        };
+
+        const source = await axios.get(`${process.env.REACT_APP_GITHUB_PROXY}/image`, { params: queryParams });
+
+        setImageSrc(`data:image/jpeg;charset=utf-8;base64,${source.data}`);
+      }
 
     }
 

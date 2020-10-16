@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, current } from '@reduxjs/toolkit';
 
 const curriculum = createSlice({
   name: 'curriculum',
@@ -36,6 +36,7 @@ const curriculum = createSlice({
     },
     setPages(state, action) {
       state.pages = action.payload;
+      state.title = `${state.pages.overview.title} @ ${state.version}`;
     },
     setDemoFiles(state, action) {
       state.demoFiles = action.payload;
@@ -68,20 +69,33 @@ const curriculum = createSlice({
       state.pages = [];
     },
     selectVersion(state, action) {
-      const version = action.payload;
-      state.title = `${state.repo.split('/').pop()} @ ${version}`;
       state.version = action.payload;
       state.file = '';
       state.markdown = '';
       state.pages = [];
     },
     selectPage(state, action) {
-      state.file = action.payload;
+
+      const { moduleNumber, classNumber, assignment } = action.payload;
+
       state.demoMode = false;
+
+      console.log(action);
+
+      if (action.payload.path) {
+        state.file = action.payload;
+      }
+      else if (moduleNumber && classNumber && assignment) {
+        const moduleObject = current(state)?.pages?.modules.filter(entry => entry.module === moduleNumber)[0] || {};
+        const classObject = moduleObject.classes ? moduleObject.classes.filter(entry => entry.class === classNumber)[0] : {};
+        const fileObject = classObject?.assignments ? classObject.assignments[assignment] : {};
+        state.file = fileObject;
+      }
+
     },
     openDemo(state, action) {
       state.demoMode = true;
-      state.demoFolder = action.payload;
+      state.demo = action.payload;
     },
   },
 });

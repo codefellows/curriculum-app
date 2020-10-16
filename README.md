@@ -29,24 +29,26 @@ GitHub Proxy
 
 - **REACT_APP_GITHUB_PROXY** The URL to the proxy app mentioned above
 
+## Version
+
+Indicates the version of the **manifest**, not the files within
+
+The manifest calls out the version that it's attached to from within
+
 ## Sample URLs
 
 Facilitator
 
 - Home: <http://localhost:3001/facilitator>
-- Direct: <http://localhost:3001/facilitator?repo=/codefellows/code-401-javascript-guide&file=/curriculum/class-07/facilitator/DEMO.md&version=2#overview>
-- Live: <https://codefellows-curriculum.netlify.app/facilitator?repo=/codefellows/code-401-javascript-guide&file=/curriculum/class-02/DISCUSSION.md&version=2>
+- Direct: <http://localhost:3001/facilitator?repo=/codefellows/code-401-javascript-guide&version=3>
 
 Canvas Assignment
 
-- Local: <http://localhost:3001/assignment?repo=/codefellows/code-401-javascript-guide&file=/curriculum/class-03/README.md&version=2>
-- Live: <https://codefellows-curriculum.netlify.app/assignment?repo=/codefellows/code-401-javascript-guide&file=/curriculum/class-17/README.md&version=2>
+- Local: <http://localhost:3001/assignment?repo=/codefellows/code-401-javascript-guide&version=3.3.0&module=01&class=01&assignment=reading>
 
 Student / Class Page (links to the class repo)
 
-- Home: <http://localhost:3001/student/codefellows/code-401-javascript-guide>
-- Direct: <http://localhost:3001/student/codefellows/code-401-javascript-guide/module-1/class-01>
-- Live: <https://codefellows-curriculum.netlify.app/student/codefellows/code-401-javascript-guide>
+- Home: <http://localhost:3001/student/codefellows/code-401-javascript-guide?version=#.#.#>
 
 TODO
 

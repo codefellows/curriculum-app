@@ -113,12 +113,16 @@ async function tree(req, res) {
 }
 
 async function image(req, res) {
-  const { repo, version, path, image } = req.query;
-  const source = `https://raw.githubusercontent.com/${repo}/${version}/${path}/${image}`;
-  const headers = { Authorization: `token ${process.env.TOKEN}` };
-  let response = await axios.get(source, { responseType: 'arraybuffer', headers });
-  let imageSource = Buffer.from(response.data).toString('base64')
-  res.send(imageSource);
+  try {
+    const { org, repo, version, path, image } = req.query;
+    const source = `https://raw.githubusercontent.com/${org}/${repo}/${version}/${path}/${image}`;
+    const headers = { Authorization: `token ${process.env.TOKEN}` };
+    let response = await axios.get(source, { responseType: 'arraybuffer', headers });
+    let imageSource = Buffer.from(response.data).toString('base64')
+    res.send(imageSource);
+  } catch (e) {
+    res.send('R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==')
+  }
 }
 
 app.listen(process.env.PORT, () => console.log('Listening on', process.env.PORT));
