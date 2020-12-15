@@ -23,7 +23,7 @@ app.use(express.json());
 app.use(express.static(buildFolder));
 
 app.get('/courses', courses)
-app.get('/courses/:id', course)
+app.get('/course/:id', course)
 app.post('/content', page);
 app.post('/manifest', manifest);
 app.post('/releases', releases);
@@ -39,7 +39,7 @@ app.use('*', (req, res) => {
 
 async function course(req, res) {
   try {
-    let response = await getCourse({ id: req.params.id });
+    let response = await getCourse({ pathParameters: { id: req.params.id } });
     res.status(response.statusCode).send(response.body);
   } catch (e) {
     res.status(500).send(e.message);
