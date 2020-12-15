@@ -269,9 +269,13 @@ github.getTree = async (repo, version, path) => {
 };
 
 async function getFromCache(key) {
-  const id = md5(key);
-  const content = await contentModel.query("id").eq(id).exec();
-  return content && content.Document && content.Document.content || null;
+  try {
+    const id = md5(key);
+    const content = await contentModel.query("id").eq(id).exec();
+    return content[0].content || null;
+  } catch (e) {
+    return null;
+  }
 }
 
 // (cacheKey, type, repo, path, version, JSON.stringify(tree));
