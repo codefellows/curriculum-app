@@ -21,15 +21,17 @@ jobs:
       - name: Install dependencies
         run: cd functions && npm install
       - name: Zip Functions
-        run: cd functions && zip -qq -r -j ./cache.zip cache.js lib node_modules
-        run: cd functions && zip -qq -r -j ./content.zip content.js lib node_modules
-        run: cd functions && zip -qq -r -j ./course.zip course.js lib node_modules
-        run: cd functions && zip -qq -r -j ./courses.zip courses.js lib node_modules
-        run: cd functions && zip -qq -r -j ./manifest.zip manifest.js lib node_modules
-        run: cd functions && zip -qq -r -j ./releases.zip manifest.js lib node_modules
-        run: cd functions && zip -qq -r -j ./repos.zip repos.js lib node_modules
-        run: cd functions && zip -qq -r -j ./tree.zip tree.js lib node_modules
-        run: cd functions && zip -qq -r -j ./image.zip image.js lib node_modules
+        run: |
+          cd functions &&
+          zip -qq -r -j ./cache.zip cache.js lib node_modules &&
+          zip -qq -r -j ./content.zip content.js lib node_modules &&
+          zip -qq -r -j ./course.zip course.js lib node_modules &&
+          zip -qq -r -j ./courses.zip courses.js lib node_modules &&
+          zip -qq -r -j ./manifest.zip manifest.js lib node_modules &&
+          zip -qq -r -j ./releases.zip manifest.js lib node_modules &&
+          zip -qq -r -j ./repos.zip repos.js lib node_modules &&
+          zip -qq -r -j ./tree.zip tree.js lib node_modules &&
+          zip -qq -r -j ./image.zip image.js lib node_modules
       - name: deploy cache to aws lambda
         uses: appleboy/lambda-action@master
         with:
