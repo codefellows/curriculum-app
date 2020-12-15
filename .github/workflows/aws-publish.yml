@@ -22,6 +22,7 @@ jobs:
         run: cd functions && npm install
       - name: Zip Functions
         run: |
+          cd functions
           zip -qq -r -j ./cache.zip cache.js lib node_modules
           zip -qq -r -j ./content.zip content.js lib node_modules
           zip -qq -r -j ./course.zip course.js lib node_modules
