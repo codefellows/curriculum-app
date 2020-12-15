@@ -1,0 +1,105 @@
+name: aws-deploy
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy_source:
+    name: build and deploy lambda
+    strategy:
+      matrix:
+        node-version: [12.x]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1.4.2
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Install dependencies
+        run: cd functions && npm install
+      - name: Zip Functions
+        run: |
+          zip -qq -r -j ./cache.zip cache.js lib node_modules
+          zip -qq -r -j ./content.zip content.js lib node_modules
+          zip -qq -r -j ./course.zip course.js lib node_modules
+          zip -qq -r -j ./courses.zip courses.js lib node_modules
+          zip -qq -r -j ./manifest.zip manifest.js lib node_modules
+          zip -qq -r -j ./releases.zip manifest.js lib node_modules
+          zip -qq -r -j ./repos.zip repos.js lib node_modules
+          zip -qq -r -j ./tree.zip tree.js lib node_modules
+          zip -qq -r -j ./image.zip image.js lib node_modules
+      - name: deploy cache to aws lambda
+        uses: appleboy/lambda-action@master
+        with:
+          aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws_region: ${{ secrets.AWS_REGION }}
+          function_name: curriculum-cache
+          zip_file: cache.zip
+      - name: deploy content to aws lambda
+        uses: appleboy/lambda-action@master
+        with:
+          aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws_region: ${{ secrets.AWS_REGION }}
+          function_name: curriculum-content
+          zip_file: content.zip  
+      - name: deploy courses to aws lambda
+        uses: appleboy/lambda-action@master
+        with:
+          aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws_region: ${{ secrets.AWS_REGION }}
+          function_name: curriculum-courses
+          zip_file: courses.zip  
+      - name: deploy course to aws lambda
+        uses: appleboy/lambda-action@master
+        with:
+          aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws_region: ${{ secrets.AWS_REGION }}
+          function_name: curriculum-course
+          zip_file: course.zip  
+      - name: deploy manifest to aws lambda
+        uses: appleboy/lambda-action@master
+        with:
+          aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws_region: ${{ secrets.AWS_REGION }}
+          function_name: curriculum-manifest
+          zip_file: manifest.zip  
+      - name: deploy releases to aws lambda
+        uses: appleboy/lambda-action@master
+        with:
+          aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws_region: ${{ secrets.AWS_REGION }}
+          function_name: curriculum-releases
+          zip_file: releases.zip  
+      - name: deploy repos to aws lambda
+        uses: appleboy/lambda-action@master
+        with:
+          aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws_region: ${{ secrets.AWS_REGION }}
+          function_name: curriculum-repos
+          zip_file: repos.zip  
+      - name: deploy tree to aws lambda
+        uses: appleboy/lambda-action@master
+        with:
+          aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws_region: ${{ secrets.AWS_REGION }}
+          function_name: curriculum-tree
+          zip_file: tree.zip  
+      - name: deploy image to aws lambda
+        uses: appleboy/lambda-action@master
+        with:
+          aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws_region: ${{ secrets.AWS_REGION }}
+          function_name: curriculum-image
+          zip_file: image.zip  
