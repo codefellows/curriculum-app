@@ -35,7 +35,8 @@
       },
       "project": {
         "repository": "code-401-javascript-guide",
-        "path": "/curriculum/module-01/project/README.md"
+        "path": "/curriculum/apps-and-libraries/notesy/README.md",
+        "solution": "/curriculum/apps-and-libraries/notesy/src"
       },
       "classes": [
         {
@@ -217,7 +218,8 @@
       },
       "project": {
         "repository": "code-401-javascript-guide",
-        "path": "/curriculum/module-02/project/README.md"
+        "path": "/curriculum/apps-and-libraries/api-server/README.md",
+        "solution": "/curriculum/apps-and-libraries/api-server/src"
       },
       "classes": [
         {
@@ -394,7 +396,11 @@
       "module": "03",
       "name": "Module 3: Authentication",
       "overview": "/facilitator/module-3.md",
-      "project": "/curriculum/module-03/project/README.md",
+      "project": {
+        "repository": "code-401-javascript-guide",
+        "path": "/curriculum/apps-and-libraries/auth-server/README.md",
+        "solution": "/curriculum/apps-and-libraries/auth-server/src"
+      },
       "classes": [
         {
           "class": "11",
@@ -575,7 +581,8 @@
       },
       "project": {
         "repository": "code-401-javascript-guide",
-        "path": "/curriculum/module-04/project/README.md"
+        "path": "/curriculum/apps-and-libraries/caps/README.md",
+        "solution": "/curriculum/apps-and-libraries/caps/src"
       },
       "classes": [
         {
@@ -733,7 +740,8 @@
       },
       "project": {
         "repository": "code-401-javascript-guide",
-        "path": "/curriculum/module-05/project/README.md"
+        "path": "/curriculum/apps-and-libraries/resty/README.md",
+        "solution": "/curriculum/apps-and-libraries/resty/src"
       },
       "classes": [
         {
@@ -915,7 +923,8 @@
       },
       "project": {
         "repository": "code-401-javascript-guide",
-        "path": "/curriculum/module-06/project/README.md"
+        "path": "/curriculum/apps-and-libraries/todo/README.md",
+        "solution": "/curriculum/apps-and-libraries/todo/src"
       },
       "classes": [
         {
@@ -1097,7 +1106,8 @@
       },
       "project": {
         "repository": "code-401-javascript-guide",
-        "path": "/curriculum/module-07/project/README.md"
+        "path": "/curriculum/apps-and-libraries/store/README.md",
+        "solution": "/curriculum/apps-and-libraries/store/src"
       },
       "classes": [
         {

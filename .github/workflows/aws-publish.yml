@@ -15,7 +15,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1.4.2
+        uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
       - name: Install dependencies
@@ -46,7 +46,7 @@ jobs:
           aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws_region: ${{ secrets.AWS_REGION }}
           function_name: curriculum-content
-          zip_file: content.zip  
+          zip_file: content.zip
       - name: deploy courses to aws lambda
         uses: appleboy/lambda-action@master
         with:
@@ -54,7 +54,7 @@ jobs:
           aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws_region: ${{ secrets.AWS_REGION }}
           function_name: curriculum-courses
-          zip_file: courses.zip  
+          zip_file: courses.zip
       - name: deploy course to aws lambda
         uses: appleboy/lambda-action@master
         with:
@@ -62,7 +62,7 @@ jobs:
           aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws_region: ${{ secrets.AWS_REGION }}
           function_name: curriculum-course
-          zip_file: course.zip  
+          zip_file: course.zip
       - name: deploy manifest to aws lambda
         uses: appleboy/lambda-action@master
         with:
@@ -70,7 +70,7 @@ jobs:
           aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws_region: ${{ secrets.AWS_REGION }}
           function_name: curriculum-manifest
-          zip_file: manifest.zip  
+          zip_file: manifest.zip
       - name: deploy releases to aws lambda
         uses: appleboy/lambda-action@master
         with:
@@ -78,7 +78,7 @@ jobs:
           aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws_region: ${{ secrets.AWS_REGION }}
           function_name: curriculum-releases
-          zip_file: releases.zip  
+          zip_file: releases.zip
       - name: deploy repos to aws lambda
         uses: appleboy/lambda-action@master
         with:
@@ -86,7 +86,7 @@ jobs:
           aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws_region: ${{ secrets.AWS_REGION }}
           function_name: curriculum-repos
-          zip_file: repos.zip  
+          zip_file: repos.zip
       - name: deploy tree to aws lambda
         uses: appleboy/lambda-action@master
         with:
@@ -94,7 +94,7 @@ jobs:
           aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws_region: ${{ secrets.AWS_REGION }}
           function_name: curriculum-tree
-          zip_file: tree.zip  
+          zip_file: tree.zip
       - name: deploy image to aws lambda
         uses: appleboy/lambda-action@master
         with:
@@ -102,4 +102,4 @@ jobs:
           aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws_region: ${{ secrets.AWS_REGION }}
           function_name: curriculum-image
-          zip_file: image.zip  
+          zip_file: image.zip

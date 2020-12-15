@@ -2,10 +2,10 @@
 
 const { Octokit } = require('@octokit/rest');
 const { graphql } = require('@octokit/graphql');
-const Redis = require('ioredis');
+const md5 = require('md5');
 const semver = require('semver');
 
-const redis = new Redis(process.env.REDIS_URL);
+const contentModel = require('./curriculum.schema.js');
 
 const octokit = new Octokit({
   auth: process.env.TOKEN,
@@ -136,7 +136,7 @@ github.getContent = async (repo, file, version) => {
 
     const content = response.repository.content.text;
 
-    await setCache(cacheKey, content);
+    await setCache(cacheKey, 'content', repo, file, version, content);
 
     return content;
 
@@ -155,7 +155,7 @@ github.getManifest = async (repo, version) => {
   if (cachedManifest) { console.log('MANIFEST from cache'); return cachedManifest; }
 
   const manifest = await github.getContent(repo, 'manifest.json', version);
-  await setCache(cacheKey, manifest);
+  await setCache(cacheKey, 'manifest', repo, 'manifest.json', version, manifest);
   return manifest;
 };
 
@@ -257,7 +257,7 @@ github.getTree = async (repo, version, path) => {
       return fileTree;
     }, {});
 
-    await setCache(cacheKey, JSON.stringify(tree));
+    await setCache(cacheKey, 'tree', repo, path, version, JSON.stringify(tree));
 
     return tree;
 
@@ -268,15 +268,16 @@ github.getTree = async (repo, version, path) => {
 
 };
 
-github.getCache = () => {
-  return cache;
-}
-
 async function getFromCache(key) {
-  const value = await redis.get(key);
-  return value;
+  const id = md5(key);
+  const content = await contentModel.query("id").eq(id).exec();
+  return content || null;
 }
 
-async function setCache(key, value) {
-  return redis.set(key, value);
+// (cacheKey, type, repo, path, version, JSON.stringify(tree));
+async function setCache(key, type, repo, path, version, content) {
+  const id = md5(key);
+  const record = new contentModel({ id, type, repo, path, version, content })
+  const data = await record.save();
+  return data;
 }

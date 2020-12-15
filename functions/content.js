@@ -9,7 +9,7 @@ exports.handler = async (event, context) => {
     const request = JSON.parse(event.body);
     const repo = request.repo.replace(/^\//, '');
     const file = request.file.replace(/^\//, '');
-    const requestedVersion = request.version;
+    const requestedVersion = request.version || 'main';
 
     const version = await github.getVersion(repo, requestedVersion);
 
