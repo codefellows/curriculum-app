@@ -6,6 +6,7 @@ exports.handler = async (event, context) => {
 
   try {
 
+    console.log("LAMBDA event", event);
     const request = JSON.parse(event.body);
     const repo = request.repo.replace(/^\//, '');
     const file = request.file.replace(/^\//, '');
