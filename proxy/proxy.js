@@ -11,7 +11,6 @@ let getManifest = require('../functions/manifest.js').handler;
 let getReleases = require('../functions/releases.js').handler;
 let getRepos = require('../functions/repos.js').handler;
 let getTree = require('../functions/tree.js').handler;
-let getCache = require('../functions/cache.js').handler;
 let getCourses = require('../functions/courses.js').handler;
 let getCourse = require('../functions/course.js').handler;
 
@@ -29,7 +28,6 @@ app.post('/tree', tree);
 app.post('/manifest', manifest);
 app.post('/releases', releases);
 app.post('/repos', repos);
-app.get('/cache', cache);
 app.get('/image', image)
 
 app.use('*', (req, res) => {

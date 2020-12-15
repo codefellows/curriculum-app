@@ -183,6 +183,7 @@ github.getTree = async (repo, version, path) => {
     const cacheKey = `TREE-${repo}-${path}-${version}`;
     const cachedTree = await getFromCache(cacheKey);
     if (cachedTree) {
+      console.log('Tree From Cache');
       return JSON.parse(cachedTree);
     }
 

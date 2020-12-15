@@ -23,7 +23,6 @@ jobs:
       - name: Zip Functions
         run: |
           cd functions &&
-          zip -rp ./cache.zip cache.js lib node_modules &&
           zip -rp ./content.zip content.js lib node_modules &&
           zip -rp ./course.zip course.js lib node_modules &&
           zip -rp ./courses.zip courses.js lib node_modules &&
@@ -32,14 +31,6 @@ jobs:
           zip -rp ./repos.zip repos.js lib node_modules &&
           zip -rp ./tree.zip tree.js lib node_modules &&
           zip -rp ./image.zip image.js lib node_modules
-      - name: deploy cache to aws lambda
-        uses: appleboy/lambda-action@master
-        with:
-          aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws_region: ${{ secrets.AWS_REGION }}
-          function_name: curriculum-cache
-          zip_file: ./functions/cache.zip
       - name: deploy content to aws lambda
         uses: appleboy/lambda-action@master
         with:

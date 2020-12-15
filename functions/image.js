@@ -4,6 +4,8 @@ const axios = require('axios');
 
 exports.handler = async (event, context, callback) => {
 
+  console.log('IMAGE-EVENT', event);
+  console.log('IMAGE-CONTEXT', context);
   const imageSource = 'R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==';
 
   try {
