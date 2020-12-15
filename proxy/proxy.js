@@ -25,10 +25,10 @@ app.use(express.static(buildFolder));
 app.get('/courses', courses)
 app.get('/course/:id', course)
 app.post('/content', page);
+app.post('/tree', tree);
 app.post('/manifest', manifest);
 app.post('/releases', releases);
 app.post('/repos', repos);
-app.post('/tree', tree);
 app.get('/cache', cache);
 app.get('/image', image)
 

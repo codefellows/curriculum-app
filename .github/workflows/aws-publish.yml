@@ -28,7 +28,7 @@ jobs:
           zip -rp ./course.zip course.js lib node_modules &&
           zip -rp ./courses.zip courses.js lib node_modules &&
           zip -rp ./manifest.zip manifest.js lib node_modules &&
-          zip -rp ./releases.zip manifest.js lib node_modules &&
+          zip -rp ./releases.zip releases.js lib node_modules &&
           zip -rp ./repos.zip repos.js lib node_modules &&
           zip -rp ./tree.zip tree.js lib node_modules &&
           zip -rp ./image.zip image.js lib node_modules
