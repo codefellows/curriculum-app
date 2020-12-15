@@ -222,3 +222,21 @@ RETURN:
   "2.6.0"
 ]
 ```
+
+## `/image`
+
+Returns the Base64 Encoding for an image, given metadata
+
+GET: `/image`
+
+QUERY PARAMS:
+
+- **org** (codefellows)
+- **repo** (code-401-javascript-guide)
+- **version** (3.3.0)
+- **path** of the document being rendered (curriculum/class-26/facilitator)
+- **image** path relative to the document (assets/abramov-quote.png)
+
+RETURN:
+
+`iVBORw0KGgoAAAANSUhEUgAAA7IAAAJ8CAYAAADDFZ2EAAABQGlDQ1BJQ0MgUHJvZmlsZQAAKJFjYGASSCwoyGFhYGDIzSspCnJ3UoiIjFJgf8zAwSDBwAUkVRKTiwscAwJ8gEoYYDQq`
