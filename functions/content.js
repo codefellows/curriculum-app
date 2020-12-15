@@ -11,9 +11,15 @@ exports.handler = async (event, context) => {
     const file = request.file.replace(/^\//, '');
     const requestedVersion = request.version || 'main';
 
+    console.log("Get Version", repo, requestedVersion);
+
     const version = await github.getVersion(repo, requestedVersion);
 
+    console.log("Version:", version);
+
     const content = await github.getContent(repo, file, version);
+
+    console.log("Content:", content);
 
     return {
       statusCode: 200,
