@@ -271,7 +271,7 @@ github.getTree = async (repo, version, path) => {
 async function getFromCache(key) {
   const id = md5(key);
   const content = await contentModel.query("id").eq(id).exec();
-  return content?.Document?.content || null;
+  return content && content.Document && content.Document.content || null;
 }
 
 // (cacheKey, type, repo, path, version, JSON.stringify(tree));
@@ -279,5 +279,5 @@ async function setCache(key, type, repo, path, version, content) {
   const id = md5(key);
   const record = new contentModel({ id, type, repo, path, version, content })
   const data = await record.save();
-  return data;
+  return content;
 }
