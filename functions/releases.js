@@ -9,9 +9,9 @@ exports.handler = async (event, context) => {
     const request = JSON.parse(event.body);
     const repo = request.repo.replace(/^\//, '');
 
-    console.log(repo);
+    console.log('Releases for', repo);
     const releases = await github.getReleases(repo);
-    console.log(releases);
+    console.log('Found:', releases);
 
     return {
       statusCode: 200,
