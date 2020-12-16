@@ -9,6 +9,7 @@ exports.handler = async (event, context, callback) => {
   const imageSource = 'R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==';
 
   try {
+    console.log('EVENT', event);
     const { org, repo, version, path, image } = { event }
     const source = `https://raw.githubusercontent.com/${org}/${repo}/${version}/${path}/${image}`;
     const headers = { Authorization: `token ${process.env.TOKEN}` };
