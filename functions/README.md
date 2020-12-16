@@ -1,4 +1,4 @@
-# Lambda Function Usage
+# Code Fellows Curriculum App: Lambda Function Usage
 
 Core URL: <https://kzrvzt3go4.execute-api.us-west-2.amazonaws.com>
 
@@ -47,7 +47,7 @@ Given an object that contains:
 
 - The guide repository (including the org name)
 - A file path (no leading slash)
-- A SemVer version (or main)
+- A Semver version (or main)
 
 return the file contents requested as plain text (usually, markdown)
 
@@ -79,7 +79,7 @@ Given an object that contains:
 
 - The guide repository (including the org name)
 - A directory path (no leading slash)
-- A SemVer version (or main)
+- A Semver version (or main)
 
 Returns an object representing the deep tree structure and contents beginning at the path. *Warning, this could fetch the entire repository.*
 
@@ -119,7 +119,7 @@ RETURN:
 Given an object that contains:
 
 - The guide repository (including the org name)
-- A SemVer version (or main)
+- A Semver version (or main)
 
 Returns the JSON object representing the course manifest, which contains the classes and content broken down by module
 

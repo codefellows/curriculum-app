@@ -9,6 +9,10 @@ exports.handler = async (event, context, callback) => {
   try {
     const { org, repo, version, path, image } = event.queryStringParameters;
     const source = `https://raw.githubusercontent.com/${org}/${repo}/${version}/${path}/${image}`;
+
+    // Check for this in cache (hash that source variable)
+    // Return immediately, or do this fetch step below
+
     const headers = { Authorization: `token ${process.env.TOKEN}` };
     let response = await axios.get(source, { responseType: 'arraybuffer', headers });
     imageSource = Buffer.from(response.data).toString('base64')
