@@ -6,6 +6,9 @@ exports.handler = async (event, context) => {
 
   try {
 
+    console.log('EVENT', event);
+    console.log('BODY', event.body);
+
     const request = JSON.parse(event.body);
     const repo = request.repo.replace(/^\//, '');
 
