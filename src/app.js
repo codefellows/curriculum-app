@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import {
   BrowserRouter as Router,
   Route,
+  Switch
 } from 'react-router-dom';
 
 import Facilitator from './pages/facilitator/app.js';
@@ -19,9 +20,12 @@ export default function App() {
     <Provider store={store}>
       <CurriculumContext>
         <Router>
-          <Route path="/facilitator"><Facilitator /></Route>
-          <Route path="/assignment"><Assignment /></Route>
-          <Route path="/student/:org/:repo"><Student /></Route>
+          <Switch>
+            <Route path="/:guid/facilitator/:repo" component={Facilitator} />
+            <Route path="/:guid/ta/:repo" component={Facilitator} />
+            <Route path="/:guid/:repo/:path" component={Assignment} />
+            <Route path="/student/:org/:repo" component={Student} />
+          </Switch>
         </Router>
       </CurriculumContext>
     </Provider>

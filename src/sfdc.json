@@ -1,10 +1,12 @@
 {
   "f5fdd64d-ea2d-4871-ab9e-fd22bddaaacf": {
-    "course": "code-401-javascript",
-    "version": "3.3"
+    "code-401-javascript-guide": {
+      "version": "3.2"
+    }
   },
   "ccd2653f-ea84-42d9-9a12-9edb268cbdf4": {
-    "course": "code-401-javascript",
-    "version": "3.2"
+    "code-401-javascript-guide": {
+      "version": "3.2"
+    }
   }
 }

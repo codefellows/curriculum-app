@@ -2,57 +2,21 @@
 
 Renders Versioned Facilitator and Student Information from the Official Course Curricula
 
-Usage:
-
-`http://<domain>?params`
-
-Query String Params:
-
-- **repo** - Org and Repository at GitHub.com i.e. `/codefellows/code-301-guide`
-- **file** - Path to file, from repo root i.e. `/curriculum/class-03/lab/README.md`
-- **version** - Version Number (semver) to render
-
 ## URLs
 
 - Live: <https://codefellows-curriculum.netlify.com>
 - Local: <http://localhost:**PORT**>
 
-## Dependencies
-
-GitHub Proxy
-
-- Fetches raw markdown and manifest information from GitHub.com
-- Deployed as a serverless function on the live domain
-- Locally, requires a running server via: <https://github.com/codefellows/curriculumn-app-proxy>
-
 ## Environment Variables
 
 - **REACT_APP_GITHUB_PROXY** The URL to the proxy app mentioned above
 
-## Version
-
-Indicates the version of the **manifest**, not the files within
-
-The manifest calls out the version that it's attached to from within
-
 ## Sample URLs
 
-Facilitator
+Facilitators and TAs
 
-- Home: <http://localhost:3001/facilitator>
-- Direct: <http://localhost:3001/facilitator?repo=/codefellows/code-401-javascript-guide&version=3>
+- Direct: <http://localhost:3000/ccd2653f-ea84-42d9-9a12-9edb268cbdf4/facilitator/code-401-javascript-guide>
 
 Canvas Assignment
 
-- Local: <http://localhost:3001/assignment?repo=/codefellows/code-401-javascript-guide&version=3.3.0&module=01&class=01&assignment=reading>
-
-Student / Class Page (links to the class repo)
-
-- Home: <http://localhost:3001/student/codefellows/code-401-javascript-guide?version=#.#.#>
-
-TODO
-
-- Consider giving the facilitator the same buttons as the student
-- Any way to get the back button to work? (Time travel?)
-- Perfect Manifest
-- Check every link
+- Local: <http://localhost:3000/ccd2653f-ea84-42d9-9a12-9edb268cbdf4/code-401-javascript-guide/curriculum/class-02/DISCUSSION.md>

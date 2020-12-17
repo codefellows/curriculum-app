@@ -21,6 +21,8 @@ const curriculum = createSlice({
 
     init(state, action) { },
 
+    assignment(state, action) { },
+
     setError(state, action) {
       console.warn('ERROR', action.payload);
       state.error = action.payload;
@@ -103,6 +105,7 @@ const curriculum = createSlice({
 // Core Action Creators - State Movers
 export const {
   init,
+  assignment,
   setMarkdown,
   setRepositories,
   setVersions,

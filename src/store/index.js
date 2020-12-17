@@ -19,5 +19,6 @@ sagaMiddleware.run(watch.watchSelectVersion);
 sagaMiddleware.run(watch.watchSelectPage);
 sagaMiddleware.run(watch.watchOpenDemo);
 sagaMiddleware.run(watch.watchInit);
+sagaMiddleware.run(watch.watchAssignment);
 
 export default store;

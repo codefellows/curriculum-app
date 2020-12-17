@@ -13,6 +13,8 @@ const drawerWidth = 320;
 
 function Page(props) {
 
+  console.log('facilitator', props);
+
   const title = useSelector(state => state.curriculum.title);
   const dispatch = useDispatch();
   const context = useContext(CurriculumContext);

@@ -33,9 +33,15 @@ export function* watchSelectPage() {
   yield takeEvery('curriculum/selectPage', loadPage);
 }
 
+export function* watchAssignment() {
+  yield takeEvery('curriculum/assignment', loadFile);
+}
+
 export function* watchOpenDemo() {
   yield takeEvery('curriculum/openDemo', loadDemo);
 }
+
+
 
 // Async Action Workers
 function* initializeApp(action) {
@@ -80,7 +86,7 @@ function* loadVersions() {
   try {
     const state = yield select();
     const endpoint = `/releases`;
-    const selections = { repo: state.curriculum.repo };
+    const selections = { repo: `codefellows/${state.curriculum.repo}` };
     const response = yield call(api, endpoint, selections);
     const versions = JSON.parse(response.text);
     yield put({ type: 'curriculum/setVersions', payload: versions });
@@ -123,6 +129,33 @@ function* loadPage() {
     const repo = `/codefellows/${baseRepo}`;
     const file = state.curriculum.file.path;
     const version = state.curriculum.pages.dependencies[baseRepo];
+
+    const selections = { repo, version, file };
+
+    console.log('Getting Page:', selections);
+    if (!(selections.repo && selections.version && selections.file)) { return; }
+
+    const response = yield call(api, endpoint, selections);
+    const content = response.text;
+    const title = yield getTitle(content);
+    if (content === '{}') { throw new Error('No Content Found'); }
+    yield put({ type: 'curriculum/setTitle', payload: title });
+    yield put({ type: 'curriculum/setMarkdown', payload: content });
+  } catch (e) {
+    yield put({ type: 'curriculum/setError', payload: e.message });
+  }
+}
+
+function* loadFile() {
+
+  try {
+    const state = yield select();
+    const endpoint = `/content`;
+
+    const baseRepo = state.curriculum.file.repository;
+    const repo = `/codefellows/${baseRepo}`;
+    const file = state.curriculum.file.path;;
+    const version = state.curriculum.version;
 
     const selections = { repo, version, file };
 
